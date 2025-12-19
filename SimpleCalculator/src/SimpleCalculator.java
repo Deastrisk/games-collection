@@ -30,6 +30,6 @@ public class SimpleCalculator {
     }
 
     private void handleInput(Scanner scanner) {
-        scanner.next
+        scanner.nextLine()
     }
 }
