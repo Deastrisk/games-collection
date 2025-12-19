@@ -1,29 +1,109 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Grade {
-    public static int averageGrade = 0;
-    String[] name;
-    int[] grade;
-    int[] absent;
+    public enum Page {
+        ADD_GRADE(1), 
+        GRADE_INFORMATION(2), 
+        EXIT(0), 
+        MENU(3), 
+        INVALID(4);
 
-    public int setAverage() {
-        if ()
+        private final int value;
+
+        private Page(int value) {
+            this.value = value;
+        }
     }
 
-    public static void main(String[] args) throws Exception {
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("Input your name: ");
-            this.name = scanner.nextLine();
+    static HashMap<String, Double> grades = new HashMap<>();
 
-            System.out.println("Input your name: ");
-            this.grade = scanner.nextInt();
+    public static void main(String[] args) {
 
-            System.out.println("Input your name: ");
-            this.absent = scanner.nextInt();
+        Page page = Page.MENU;
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\n=== Student Grade Manager ===");
+            System.out.println("1. Add Student Grade");
+            System.out.println("2. Grade information");
+            System.out.println("0. Exit");
+            System.out.print("Choose an option: ");
+
+            switch (scanner.nextInt()) {
+                case 0:
+                    page = Page.EXIT;
+                    break;
+                case 1:
+                    page = Page.ADD_GRADE;
+                    break;
+                case 2:
+                    page = Page.GRADE_INFORMATION;
+                    break;
+                default:
+                    page = Page.INVALID;
+            }
+
+            switch (page) {
+                case Page.EXIT:
+                    return;
+                case Page.ADD_GRADE:
+                    addGrade(scanner);
+                    break;
+                case Page.GRADE_INFORMATION:
+                    gradeInformation();
+                    break;
+                default:
+                    invalidOption();
+            }
+        }
+    }
+
+    static private void invalidOption() {
+        System.out.println("Invalid option");
+    }
+
+    static private int addGrade(Scanner scanner) {
+        System.out.println("\n=== ADD GRADE ===");
+        System.out.print("Input name : ");
+        scanner.nextLine();
+        String name = scanner.nextLine();
+        if (name.compareTo("") == 0) {
+            System.out.println("Name must be filled");
+            return 2;
         }
 
-        System.out.printf("Your name is : %s", name);
-        System.out.printf("Your name is : %s", name);
-        System.out.printf("Your name is : %s", name);
+        System.out.print("Input grade: ");
+        String gradeStr = scanner.nextLine();
+        double grade;
+
+        // validates grade input
+        try {
+            grade = Double.parseDouble(gradeStr);
+        } catch (NumberFormatException e) {
+            System.out.println("Must be a number");
+            return 3;
+        }
+
+        if (grade < 0 || grade > 100) {
+            System.out.println("Grade cannot be under 0 or exceed 100");
+            return 1;
+        }
+        grades.put(name, grade);
+
+        System.out.println("Grade inputted successfully");
+        return 0;
+    }
+
+    static private void gradeInformation() {
+        System.out.println("\n=== GRADE INFORMATION ===");
+        if (grades.isEmpty()) {
+            System.out.println("Database currently empty...");
+            return;
+        }
+
+        for (String name : grades.keySet()) {
+            System.out.println(name + " : " + grades.get(name));
+        }
     }
 }
