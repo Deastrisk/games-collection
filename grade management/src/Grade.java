@@ -45,12 +45,12 @@ public class Grade {
             }
 
             switch (page) {
-                case Page.EXIT:
+                case EXIT:
                     return;
-                case Page.ADD_GRADE:
+                case ADD_GRADE:
                     addGrade(scanner);
                     break;
-                case Page.GRADE_INFORMATION:
+                case GRADE_INFORMATION:
                     gradeInformation();
                     break;
                 default:
@@ -81,7 +81,7 @@ public class Grade {
         try {
             grade = Double.parseDouble(gradeStr);
         } catch (NumberFormatException e) {
-            System.out.println("Must be a number");
+            System.out.println("Must be a number!");
             return 3;
         }
 
