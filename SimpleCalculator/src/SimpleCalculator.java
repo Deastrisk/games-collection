@@ -166,10 +166,17 @@ public class SimpleCalculator {
         return new ArrayList<>();
     }
 
-    private List<List<Integer>> getOrders() {
-        List<List<Integer>> orders = new ArrayList<>();
+    private ArrayList<Integer> getHighestPriority() {
+        int[] maxSpecificity = {0, 0};
+        int maxIndex = 0;
 
-        
+        for (int i = 0; i < input.length(); i++) {
+            // if (input) {
+
+            // }
+        }
+
+        // return 0;
         return new ArrayList<>();
     }
 
@@ -180,7 +187,6 @@ public class SimpleCalculator {
         for (Double num : numbers) {
             System.out.printf("%f, ", num);
         }
-
         
         return 0;
     }
