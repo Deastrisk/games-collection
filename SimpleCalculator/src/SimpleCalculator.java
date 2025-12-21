@@ -1,5 +1,8 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import java.util.ArrayList;aa
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SimpleCalculator {
     public static void main(String[] args) throws Exception {
@@ -20,9 +23,6 @@ public class SimpleCalculator {
 
     double result = 0;
     String input = "";
-    String a;
-    String b;
-    char ops;
 
     // private Pattern isEquationPattern = Pattern.compile("^-?\\d+(\\.\\d+)?([\\+-\\*/](\\(-\\d+(\\.\\d+)?\\))|(\\d+(\\.\\d+)?))+$");
 
@@ -32,7 +32,10 @@ public class SimpleCalculator {
             display();
             char input = getCalculatorInput(scanner);
             if (input != 0) {
-                appendInput(input);
+                // appends input char
+                this.input += input;
+
+                calculateEquation();
             }
             System.out.println(isValidEquation(this.input));
         }
@@ -135,53 +138,50 @@ public class SimpleCalculator {
     }
 
     private char getCalculatorInput(Scanner scanner) {
-        char c = scanner.nextLine().charAt(0);
+        String s = scanner.nextLine();
+        if (s.length() == 0) {
+            return 0;
+        }
+
+        char c = s.charAt(0);
         if (!isValidCharacter(c)) {
             return 0;
         }
 
         return c;
     }
+    
+    Pattern pattern = Pattern.compile("\\d+(?:\\.\\d+)?");
+    private List<Double> getAllDoubles(String equation) {
+        List<Double> numbers = new ArrayList<>();
+        Matcher matcher = pattern.matcher(equation);
 
-    private void appendInput(char input) {
-        this.input = this.input + input;
-    }
-
-    private void getAllDoubles(String equation, ArrayList<Double> output) {
-        double buffer = 0;
-        String bufferStr = "";
-        for (int i = 0, wordLen = 0; i < equation.length(); i++, wordLen++) {
-            if (wordLen == 0 && )
-            bufferStr = bufferStr + equation[i];
+        while (matcher.find()) {
+            numbers.add(Double.valueOf(matcher.group()));
         }
+        return numbers;
     }
 
-    private int calculate() {
+    private List<Integer> getAllOperators() {
+        return new ArrayList<>();
+    }
+
+    private List<List<Integer>> getOrders() {
+        List<List<Integer>> orders = new ArrayList<>();
+
+        
+        return new ArrayList<>();
+    }
+
+    private int calculateEquation() {
         // turn string number into double
-        try {
-            double num = Double.parseDouble(b);
-        } catch (NumberFormatException e) {
-            System.out.println("Invaid Number format");
-            return 1;
+        List<Double> numbers = getAllDoubles(input);
+
+        for (Double num : numbers) {
+            System.out.printf("%f, ", num);
         }
 
-        switch (ops) {
-            case '+':
-                result += num;
-                break;
-            case '-':
-                result -= num;
-                break;
-            case '/':
-                result /= num;
-                break;
-            case '*':
-                result *= num;
-                break;
-            default:
-                System.out.println("Invalid oparator");
-                return 2;
-        }
+        
         return 0;
     }
 }
