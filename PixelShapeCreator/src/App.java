@@ -1,13 +1,10 @@
-import java.awt.Dimension;
-import javax.swing.JFrame;
+import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args) throws Exception {
-        JFrame window = new JFrame();
+    public static Scanner scanner = new Scanner(System.in);
 
-        window.setVisible(true);
-        window.setPreferredSize(new Dimension(600, 400));
-        window.setTitle("Shape Creator");
-        window.setLayout(null);
+    public static void main(String[] args) throws Exception {
+        MainMenu menu = new MainMenu();
+        menu.display();
     }
 }
