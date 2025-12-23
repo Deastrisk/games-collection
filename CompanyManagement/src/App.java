@@ -7,5 +7,10 @@ public class App {
         // window.setPreferredSize(new Dimension(600, 450));
         // window.setLayout(null);
         
+        FullTimeEmployee fulltime = new FullTimeEmployee("Marcio", 50, 4);
+        PartTimeEmployee parttime = new PartTimeEmployee("Amadeus", 18);
+
+        System.out.println(fulltime.getSalary());
+        System.out.println(parttime.getSalary());
     }
 }

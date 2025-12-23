@@ -1,15 +1,17 @@
 public abstract class Employee {
-    private String name;
-    private int age;
-    private double salary;
-    private double experience;
+    protected String name;
+    protected int age;
+    protected long salaryPerHour;
+    protected int experience;
 
     public abstract String getJobTitle();
+    
+    public void setSalary(long salary) {
+        this.salaryPerHour = salary;
+    }
 
     public String getName() {return name;}
+    public double getSalary() {return salaryPerHour;}
     public int getAge() {return age;}
-    public double getSalary() {return salary;}
-    public double getExperience() {return experience;}
-
-    public void setSalary(double salary) {this.salary = salary;}
+    public int getExperience() {return experience;}
 }
