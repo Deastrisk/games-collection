@@ -10,7 +10,7 @@ public class App {
         FullTimeEmployee fulltime = new FullTimeEmployee("Marcio", 50, 4);
         PartTimeEmployee parttime = new PartTimeEmployee("Amadeus", 18);
 
-        System.out.println(fulltime.getSalary());
         System.out.println(parttime.getSalary());
+        System.out.println(fulltime.getSalary());
     }
 }
