@@ -5,14 +5,14 @@ public class SquareMenu implements Menu {
 
     @Override
     public void display() {
-        System.out.println("==== SQUARE ===");
-        System.out.println("Width         : " + width);
-        System.out.println("Area          : " + area);
-        System.out.println("Circumference : " + circumference);
-        System.out.println("===============");
-        System.out.println("1. Settings");
-        System.out.println("0. Exit");
-        System.out.println("===============");
+        System.out.println("==== SQUARE ====");
+        System.out.println("| Width         : " + width);
+        System.out.println("| Area          : " + area);
+        System.out.println("| Circumference : " + circumference);
+        System.out.println("================");
+        System.out.println("| 1. Settings");
+        System.out.println("| 0. Exit");
+        System.out.println("================");
         printShape();
     }
 
@@ -30,6 +30,7 @@ public class SquareMenu implements Menu {
         switch (input) {
             case 1: return MenuType.SQUARE_SETTINGS;
             case 0: return MenuType.SHAPES;
+            default: return MenuType.SQUARE_SETTINGS;
         }
     }
 
@@ -39,7 +40,7 @@ public class SquareMenu implements Menu {
             System.out.print(">> ");
 
             if (!App.scanner.hasNextInt()) continue;
-            int inp = App.nextInt();
+            int inp = App.scanner.nextInt();
 
             if (inp >= 0 && inp <= 1) return inp;
         }
