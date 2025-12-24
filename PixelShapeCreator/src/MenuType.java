@@ -1,0 +1,15 @@
+public enum MenuType {
+    MAIN,
+
+    SHAPES,
+    SQUARE,
+    SQUARE_SETTINGS,
+    RECTANGLE,
+    RECTANGLE_SETTINGS,
+    CIRCLE,
+    CIRCLE_SETTINGS,
+    TRIANGLE,
+    TRIANGLE_SETTINGS,
+
+    EXIT;
+}
