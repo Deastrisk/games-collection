@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 
 public class SquareSettings extends SquareMenu {
     SquareSettings(SquareState state) {
@@ -9,29 +10,35 @@ public class SquareSettings extends SquareMenu {
         System.out.println("+---------------+");
         System.out.println("| Square Settings");
         System.out.println("+---------------+");
+        
         System.out.print("| Set width : ");
-
         state.width = getInput();
 
-        
-        System.out.println("+---------------+");
-        System.out.println("| Square width set!");
-
-        return MenuType.SQUARE;
+        return handleInput(state.width);
     }
 
     @Override
     public MenuType handleInput(int input) {
+        if (input == -1) {
+            System.out.println("+---------------+");
+            System.out.println("| Width must be a positive number");
+            System.out.println("| Square width failed to set");
+        } else {
+            System.out.println("+---------------+");
+            System.out.println("| Width successfully set.");
+        }
+
         return MenuType.SQUARE;
     }
 
     @Override
     public int getInput() {
-        while (true) {
-            String inp = App.scanner.nextLine().trim();
-            try {
-                return Integer.parseInt(inp);
-            } catch (NumberFormatException e) {}
-        }
+        String inpStr = App.scanner.nextLine();
+        try {
+            int inp = Integer.parseInt(inpStr);
+            if (inp <= 0) return -1;
+            return inp;
+        } catch (NumberFormatException e) {}
+        return -1;
     }
 }

@@ -12,30 +12,18 @@ public class SquareMenu implements Menu {
         System.out.println("+---------------+");
         System.out.println("| Square");
         System.out.println("+---------------+");
-        System.out.println("| Width         : " + state.width);
-        System.out.println("| Area          : " + state.getArea());
-        System.out.println("| Circumference : " + state.getCircumference());
+        System.out.println("| Width     : " + state.width);
+        System.out.println("| Area      : " + state.getArea());
+        System.out.println("| Perimeter : " + state.getPerimeter());
         System.out.println("+---------------+");
         System.out.println("| 1. Settings");
         System.out.println("| 0. Exit");
         System.out.println("+---------------+");
-        printShape();
+        state.printShape();
 
+        System.out.println("+---------------+");
         int inp = getInput();
         return handleInput(inp);
-    }
-
-    private void printShape() {
-        for (int i = 0; i < state.width; i++) {
-            for (int j = 0; j < state.width; j++) {
-                if (j == 0 || j == state.width - 1 || i == 0 || i == state.width - 1) {
-                    System.out.print("##");
-                } else {
-                    System.out.print("  ");
-                }
-            }
-            System.out.println();
-        }
     }
 
     @Override
@@ -50,18 +38,19 @@ public class SquareMenu implements Menu {
     @Override
     public int getInput() {
         while (true) { 
-            System.out.print(">> ");
+            System.out.print("| >> ");
 
-            int inp;
+            String inpStr = App.scanner.nextLine();
             try {
-                inp = App.scanner.nextInt();
-            } catch (InputMismatchException e) {
-                continue;
-            } finally {
-                App.scanner.nextLine();
+                int inp = Integer.parseInt(inpStr);
+                if (inp < 0 || inp > 1) {
+                    System.out.println("| Input must be between 0-1.");
+                    continue;
+                }
+                return inp;
+            } catch (NumberFormatException e) {
+                System.out.println("| Input must be a number.");
             }
-
-            if (inp >= 0 && inp <= 1) return inp;
         }
     }
 }

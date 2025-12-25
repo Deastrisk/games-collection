@@ -1,3 +1,4 @@
+import java.text.spi.NumberFormatProvider;
 import java.util.InputMismatchException;
 
 public class MainMenu implements Menu {
@@ -10,7 +11,7 @@ public class MainMenu implements Menu {
         System.out.println("| 0. Exit");
         System.out.println("+---------------+");
 
-        int inp = getInput();
+        int inp = (int) getInput();
         return handleInput(inp);
     }
 
@@ -29,16 +30,17 @@ public class MainMenu implements Menu {
             System.out.print("| >> ");
 
             // validates input
-            int inp;
+            String inpStr = App.scanner.nextLine();
             try {
-                inp = App.scanner.nextInt();
-            } catch (InputMismatchException e) {
-                continue;
-            } finally {
-                App.scanner.nextLine();
+                int inp = Integer.parseInt(inpStr);
+                if (inp < 0 || inp > 1) {
+                    System.out.println("| Input must be between 0-1");
+                    continue;
+                }
+                return inp;
+            } catch (NumberFormatException e) {
+                System.out.println("| Input Must be a number.");
             }
-
-            if (inp >= 0 && inp <= 1) return inp;
         }
     }
 }

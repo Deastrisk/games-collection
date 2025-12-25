@@ -1,10 +1,6 @@
-
-import java.util.InputMismatchException;
-
-public class RectangleMenu implements Menu {
-    protected RectangleState state;
-
-    public RectangleMenu(RectangleState state) {
+public class TriangleMenu implements Menu {
+    TriangleState state;
+    TriangleMenu(TriangleState state) {
         this.state = state;
     }
 
@@ -13,36 +9,36 @@ public class RectangleMenu implements Menu {
         System.out.println("+---------------+");
         System.out.println("| Square");
         System.out.println("+---------------+");
-        System.out.println("| Width         : " + state.width);
-        System.out.println("| Height        : " + state.height);
-        System.out.println("| Area          : " + state.getArea());
+        System.out.println("| a         : " + state.a);
+        System.out.println("| b         : " + state.b);
+        System.out.println("| base      : " + state.base);
+        System.out.println("| height    : " + state.getHeight());
+        System.out.println("| Area      : " + state.getArea());
         System.out.println("| Perimeter : " + state.getPerimeter());
         System.out.println("+---------------+");
         System.out.println("| 1. Settings");
         System.out.println("| 0. Exit");
         System.out.println("+---------------+");
         state.printShape();
-
-        System.out.println("+---------------+");
-        int inp = (int) getInput();
-        return handleInput(inp);
+        int var1 = this.getInput();
+        return this.handleInput(var1);
     }
 
     @Override
     public int getInput() {
-        while (true) { 
+        while (true) {
             System.out.print("| >> ");
 
             String inpStr = App.scanner.nextLine();
             try {
                 int inp = Integer.parseInt(inpStr);
                 if (inp < 0 || inp > 1) {
-                    System.out.println("| Input Must be a between 0-1.");
+                    System.out.println("| Input must be between 0-1");
                     continue;
                 }
                 return inp;
             } catch (NumberFormatException e) {
-                System.out.println("| Input Must be a number.");
+                System.out.println("| Input must be a number.");
             }
         }
     }
@@ -51,8 +47,8 @@ public class RectangleMenu implements Menu {
     public MenuType handleInput(int input) {
         switch (input) {
             case 0: return MenuType.SHAPES;
-            case 1: return MenuType.RECTANGLE_SETTINGS;
-            default: return MenuType.RECTANGLE;
+            case 1: return MenuType.TRIANGLE_SETTINGS;
+            default: return MenuType.TRIANGLE;
         }
     }
 }

@@ -34,16 +34,17 @@ public class ShapeMenu implements Menu {
         while (true) { 
             System.out.print("| >> ");
 
-            int inp;
+            String inpStr = App.scanner.nextLine();
             try {
-                inp = App.scanner.nextInt();
-            } catch (InputMismatchException e) {
-                continue;
-            } finally {
-                App.scanner.nextLine();
+                int inp = Integer.parseInt(inpStr);
+                if (inp < 0 || inp > 4) {
+                    System.out.println("| Input must be between 0-4.");
+                    continue;
+                }
+                return inp;
+            } catch (NumberFormatException e) {
+                System.out.println("| Input must be a number.");
             }
-
-            if (inp >= 0 && inp <= 4) return inp;
         }
     }
 }

@@ -8,7 +8,21 @@ public class RectangleState implements State {
     }
 
     @Override
-    public double getCircumference() {
+    public double getPerimeter() {
         return 2 * (width + height);
+    }
+
+    @Override
+    public void printShape() {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
+                    System.out.print("##");
+                } else {
+                    System.out.print("  ");
+                }
+            }
+            System.out.println();
+        }
     }
 }

@@ -1,4 +1,5 @@
 interface State {
     public double getArea();
-    public double getCircumference();
+    public double getPerimeter();
+    public void printShape();
 }
