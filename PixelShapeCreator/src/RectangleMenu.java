@@ -1,9 +1,10 @@
+
 import java.util.InputMismatchException;
 
-public class SquareMenu implements Menu {
-    protected SquareState state;
+public class RectangleMenu implements Menu {
+    protected RectangleState state;
 
-    public SquareMenu(SquareState state) {
+    public RectangleMenu(RectangleState state) {
         this.state = state;
     }
 
@@ -13,6 +14,7 @@ public class SquareMenu implements Menu {
         System.out.println("| Square");
         System.out.println("+---------------+");
         System.out.println("| Width         : " + state.width);
+        System.out.println("| Height        : " + state.height);
         System.out.println("| Area          : " + state.getArea());
         System.out.println("| Circumference : " + state.getCircumference());
         System.out.println("+---------------+");
@@ -26,31 +28,18 @@ public class SquareMenu implements Menu {
     }
 
     private void printShape() {
-        for (int i = 0; i < state.width; i++) {
+        for (int i = 0; i < state.height; i++) {
             for (int j = 0; j < state.width; j++) {
-                if (j == 0 || j == state.width - 1 || i == 0 || i == state.width - 1) {
-                    System.out.print("##");
-                } else {
-                    System.out.print("  ");
-                }
+                System.out.print("##");
             }
             System.out.println();
         }
     }
 
     @Override
-    public MenuType handleInput(int input) {
-        switch (input) {
-            case 1: return MenuType.SQUARE_SETTINGS;
-            case 0: return MenuType.SHAPES;
-            default: return MenuType.SQUARE_SETTINGS;
-        }
-    }
-
-    @Override
     public int getInput() {
         while (true) { 
-            System.out.print(">> ");
+            System.out.print("| >> ");
 
             int inp;
             try {
@@ -62,6 +51,15 @@ public class SquareMenu implements Menu {
             }
 
             if (inp >= 0 && inp <= 1) return inp;
+        }
+    }
+
+    @Override
+    public MenuType handleInput(int input) {
+        switch (input) {
+            case 0: return MenuType.SHAPES;
+            case 1: return MenuType.RECTANGLE_SETTINGS;
+            default: return MenuType.RECTANGLE;
         }
     }
 }
