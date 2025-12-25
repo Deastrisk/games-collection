@@ -1,5 +1,5 @@
 public interface Menu {
-    void display();
+    MenuType IODisplay();
     MenuType handleInput(int input);
     int getInput();
 }
