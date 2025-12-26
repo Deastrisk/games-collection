@@ -10,11 +10,15 @@ public class SquareSettings extends SquareMenu {
         System.out.println("+---------------+");
         System.out.println("| Square Settings");
         System.out.println("+---------------+");
-        
-        System.out.print("| Set width : ");
-        state.width = getInput();
 
-        return handleInput(state.width);
+        System.out.print("| Set width : ");
+        int width = getInput();
+
+        if (width != -1) {
+            state.width = width;
+        }
+
+        return handleInput(width);
     }
 
     @Override

@@ -5,6 +5,7 @@ public class App {
     public static Scanner scanner = new Scanner(System.in);
     SquareState squareState = new SquareState();
     RectangleState rectangleState = new RectangleState();
+    TriangleState triangleState = new TriangleState();
 
     private final Map<MenuType, Menu> menus = Map.ofEntries(
         Map.entry(MenuType.MAIN, new MainMenu()),
@@ -12,11 +13,11 @@ public class App {
         Map.entry(MenuType.SQUARE, new SquareMenu(squareState)),
         Map.entry(MenuType.SQUARE_SETTINGS, new SquareSettings(squareState)),
         Map.entry(MenuType.RECTANGLE, new RectangleMenu(rectangleState)),
-        Map.entry(MenuType.RECTANGLE_SETTINGS, new RectangleSettings(rectangleState))
+        Map.entry(MenuType.RECTANGLE_SETTINGS, new RectangleSettings(rectangleState)),
         // Map.entry(MenuType.CIRCLE, new CircleMenu(circleState)),
-        // Map.entry(MenuType.CIRCLE_SETTINGS, new CircleSettings(circleState)),
-        // Map.entry(MenuType.TRIANGLE, new TriangleMenu(triangleState)),
-        // Map.entry(MenuType.TRIANGLE_SETTINGS, new TriangleSettings(triangleState))
+        // Map.entry(MenuType.CIRCLE_SETTINGS, new CircleSettings(circleState))
+        Map.entry(MenuType.TRIANGLE, new TriangleMenu(triangleState)),
+        Map.entry(MenuType.TRIANGLE_SETTINGS, new TriangleSettings(triangleState))
     );
 
     private MenuType currentType = MenuType.MAIN;

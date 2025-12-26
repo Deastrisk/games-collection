@@ -10,14 +10,19 @@ public class RectangleSettings extends RectangleMenu {
         System.out.println("+---------------+");
 
         System.out.print("| Set Height : ");
-        state.height = getInput();
+        int height = getInput();
 
         System.out.print("| Set Width  : ");
-        state.width = getInput();
+        int width = getInput();
 
         System.out.println("+---------------+");
 
-        int validator = (state.height == -1 || state.width == -1) ? -1 : 0;
+        int validator = (height == -1 || width == -1) ? -1 : 0;
+        if (validator != -1) {
+            state.width = width;
+            state.height = height;
+        }
+        
         return handleInput(validator);
     }
 

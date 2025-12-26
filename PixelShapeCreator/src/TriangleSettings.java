@@ -10,15 +10,21 @@ public class TriangleSettings extends TriangleMenu {
         System.out.println("+---------------+");
         
         System.out.print("| Set base : ");
-        state.base = getInput();
+        int base = getInput();
         System.out.print("| Set a    : ");
-        state.a = getInput();
+        int a = getInput();
         System.out.print("| Set b    : ");
-        state.b = getInput();
+        int b = getInput();
 
         int validator = 1;
-        if (state.base == -1 || state.a == -1 || state.b == -1) {
+        if (base == -1 || a == -1 || b == -1) {
             validator = -1;
+        }
+
+        if (validator != -1) {
+            state.base = base;
+            state.a = a;
+            state.b = b;
         }
 
         System.out.println("+---------------+");

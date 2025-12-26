@@ -7,7 +7,7 @@ public class TriangleMenu implements Menu {
     @Override
     public MenuType IODisplay() {
         System.out.println("+---------------+");
-        System.out.println("| Square");
+        System.out.println("| Triangle");
         System.out.println("+---------------+");
         System.out.println("| a         : " + state.a);
         System.out.println("| b         : " + state.b);
@@ -19,9 +19,12 @@ public class TriangleMenu implements Menu {
         System.out.println("| 1. Settings");
         System.out.println("| 0. Exit");
         System.out.println("+---------------+");
+
+        state.createShape();
         state.printShape();
-        int var1 = this.getInput();
-        return this.handleInput(var1);
+
+        int inp = this.getInput();
+        return this.handleInput(inp);
     }
 
     @Override
