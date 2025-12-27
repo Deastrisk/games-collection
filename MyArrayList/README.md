@@ -8,3 +8,4 @@ Things learned:
 - dynamic arrays
 - exceptions
 - Object root class
+- ArrayList.toArray contract

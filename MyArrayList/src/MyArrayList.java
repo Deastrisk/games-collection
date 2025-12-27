@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Iterator;
 
 public class MyArrayList<type> implements List<type> {
     private Object[] array;
@@ -13,12 +15,56 @@ public class MyArrayList<type> implements List<type> {
         this.array = new Object[this.size];
     }
 
+    // @Override
+    // public Iterator<type> iterator() {
+
+    // }
+
+    // @Override
+    // public ListIterator<type> listIterator(int i) {
+        
+    // }
+
+    @Override
+    public Object[] toArray() {
+        return java.util.Arrays.copyOf(this.array, this.length);
+    }
+
+    // converts ArrayList to a low-level array
     @Override
     public <T> T[] toArray(T[] container) {
+        // container length is smaller than the needed size
+        if (container.length < this.length) {
 
-        System.arraycopy(this.array, 0, container, 0, this.length);
-        if (container.length > 0) {
-            
+            // SuppressWarnings can be used on classes,
+            // methods, fields, parameters, constructors,
+            // and local variables
+            @SuppressWarnings("unchecked")
+
+            // creates an array with contents of this.array
+            // then changes the array type to T[]
+            T[] newArray = (T[]) java.util.Arrays.copyOf(
+                this.array, 
+                this.length, 
+                container.getClass()
+            );
+
+            return newArray;
+        }
+
+        System.arraycopy(
+            this.array, 
+            0, 
+            container, 
+            0, 
+            this.length
+        );
+
+        // adds null to mark the end of the array if the
+        // container size is larger than the actual amount
+        // of contents inside
+        if (container.length > this.length) {
+            container[this.length] = null;
         }
         return container;
     }
