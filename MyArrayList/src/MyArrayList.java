@@ -220,8 +220,18 @@ public class MyArrayList<E> implements List<E> {
 
     @Override
     public List<E> subList(int s, int e) {
-        List<E> sub = new MyArrayList<>();
-        return sub;
+        if (s < 0 || e > this.length) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (s > e) {
+            throw new IllegalArgumentException();
+        }
+
+        // int length = e - s;
+        // List<E> subList = new MyArrayList<>();
+        
+        return new MyArrayList<>();
     }
 
     @Override
