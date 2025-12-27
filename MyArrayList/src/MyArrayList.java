@@ -25,6 +25,11 @@ public class MyArrayList<E> implements List<E> {
 
     @Override
     public ListIterator<E> listIterator(int i) {
+        return new MyIterator(i);
+    }
+
+    @Override
+    public ListIterator<E> listIterator() {
         return new MyIterator();
     }
 
@@ -41,6 +46,11 @@ public class MyArrayList<E> implements List<E> {
         }
 
         @Override
+        public int nextIndex() {
+            return cursor;
+        }
+
+        @Override
         public int previousIndex() {
             return lastReturned - 1;
         }
@@ -53,7 +63,6 @@ public class MyArrayList<E> implements List<E> {
 
         @Override
         public void add(E data) {
-            if (data.equals(MyArrayList.this.))
             MyArrayList.this.add(lastReturned, data);
             lastReturned = -1;
         }
