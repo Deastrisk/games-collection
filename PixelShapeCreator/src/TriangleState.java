@@ -12,7 +12,7 @@ public class TriangleState implements State {
 
     public TriangleState() {
         // creates 2d array
-        shape = new ArrayList<>();g
+        shape = new ArrayList<>();
         // initializeShape();
     }
 
