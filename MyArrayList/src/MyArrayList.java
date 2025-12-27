@@ -32,9 +32,49 @@ public class MyArrayList<E> implements List<E> {
         private int cursor = 0;
         private int lastReturned = -1;
 
+        public MyIterator() {
+            this(0);
+        }
+
+        public MyIterator(int start) {
+            cursor = start;
+        }
+
+        @Override
+        public int previousIndex() {
+            return lastReturned - 1;
+        }
+
+        @Override
+        public void set(E data) {
+            MyArrayList.this.array[lastReturned] = data;
+            lastReturned = -1;
+        }
+
+        @Override
+        public void add(E data) {
+            if (data.equals(MyArrayList.this.))
+            MyArrayList.this.add(lastReturned, data);
+            lastReturned = -1;
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return cursor > 0;
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public E previous() {
+            if (!hasPrevious()) {
+                throw new NoSuchElementException();
+            }
+            lastReturned = cursor - 1;
+            return (E) MyArrayList.this.array[cursor++];
+        }
+
         @Override
         public boolean hasNext() {
-
             return cursor < MyArrayList.this.length;
         }
 
