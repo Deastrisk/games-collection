@@ -8,8 +8,9 @@ Things learned:
 - dynamic arrays
 - exceptions
 - Object root class
-- ArrayList.toArray contract
+- Interface contract
+- wildcard
+- Iterator and Iterable interface
 
 OTW
-- basic nested class
-- iterable and iterator interface
+- ListIterator interface
