@@ -47,16 +47,20 @@ public class MyArrayList<E> implements List<E> {
 
         @Override
         public int nextIndex() {
-            return cursor - 2;
+            return cursor;
         }
 
         @Override
         public int previousIndex() {
-            return cursor - 2;
+            return cursor - 1;
         }
 
         @Override
         public void set(E data) {
+            if (lastReturned < -1) {
+                throw new IllegalStateException();
+            }
+
             if (data != null && 
                 !MyArrayList.this.array[lastReturned].getClass().isInstance(data)
             ) {
@@ -68,7 +72,17 @@ public class MyArrayList<E> implements List<E> {
 
         @Override
         public void add(E data) {
-            MyArrayList.this.add(lastReturned, data);
+            if (lastReturned < 0) {
+                throw new IllegalStateException();
+            }
+
+            if (data != null &&
+                !MyArrayList.this.array[lastReturned].getClass().isInstance(data)
+            ) {
+                throw new ClassCastException();
+            }
+            MyArrayList.this.add(cursor, data);
+            cursor++;
             lastReturned = -1;
         }
 
@@ -83,8 +97,9 @@ public class MyArrayList<E> implements List<E> {
             if (!hasPrevious()) {
                 throw new NoSuchElementException();
             }
-            lastReturned = cursor - 1;
-            return (E) MyArrayList.this.array[cursor++];
+            cursor--;
+            lastReturned = cursor + 3;
+            return (E) MyArrayList.this.array[cursor];
         }
 
         @Override
@@ -105,7 +120,7 @@ public class MyArrayList<E> implements List<E> {
         @Override
         public void remove() {
             if (lastReturned < 0) {
-                throw new NoSuchElementException();
+                throw new IllegalStateException();
             }
 
             MyArrayList.this.remove(lastReturned);
