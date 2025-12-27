@@ -1,10 +1,13 @@
-import java.util.ArrayList;
+// import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
-public class MyArrayList<type> implements List<type> {
+public class MyArrayList<E> implements List<E> {
     private Object[] array;
     private int length;
     private int size;
@@ -15,50 +18,76 @@ public class MyArrayList<type> implements List<type> {
         this.array = new Object[this.size];
     }
 
-    // @Override
-    // public Iterator<type> iterator() {
+    @Override
+    public Iterator<E> iterator() {
+        return new MyIterator();
+    }
 
-    // }
+    @Override
+    public ListIterator<E> listIterator(int i) {
+        return new MyIterator();
+    }
 
-    // @Override
-    // public ListIterator<type> listIterator(int i) {
-        
-    // }
+    private class MyIterator implements ListIterator<E> {
+        private int cursor = 0;
+        private int lastReturned = -1;
+
+        @Override
+        public boolean hasNext() {
+
+            return cursor < MyArrayList.this.length;
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public E next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            lastReturned = cursor;
+            return (E) MyArrayList.this.array[cursor++];
+        }
+
+        @Override
+        public void remove() {
+            if (lastReturned < 0) {
+                throw new NoSuchElementException();
+            }
+
+            MyArrayList.this.remove(lastReturned);
+            cursor = lastReturned;
+            lastReturned = -1;
+        }
+    }
 
     @Override
     public Object[] toArray() {
         return java.util.Arrays.copyOf(this.array, this.length);
     }
 
+    // SuppressWarnings can be used on classes,
+    // methods, fields, parameters, constructors,
+    // and local variables to suppress warnings
+
     // converts ArrayList to a low-level array
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T[] toArray(T[] container) {
+        Objects.requireNonNull(container, "Array cannot be null");
+
         // container length is smaller than the needed size
         if (container.length < this.length) {
-
-            // SuppressWarnings can be used on classes,
-            // methods, fields, parameters, constructors,
-            // and local variables
-            @SuppressWarnings("unchecked")
-
             // creates an array with contents of this.array
             // then changes the array type to T[]
-            T[] newArray = (T[]) java.util.Arrays.copyOf(
+            return (T[]) Arrays.copyOf(
                 this.array, 
                 this.length, 
                 container.getClass()
             );
-
-            return newArray;
         }
 
-        System.arraycopy(
-            this.array, 
-            0, 
-            container, 
-            0, 
-            this.length
-        );
+        // copies this.array to container
+        System.arraycopy(this.array, 0, container, 0, this.length);
 
         // adds null to mark the end of the array if the
         // container size is larger than the actual amount
@@ -87,28 +116,41 @@ public class MyArrayList<type> implements List<type> {
         return latest;
     }
 
+    // ?           : (wildcard) an unknown fixed type
+    // ? extends E : an unknown type which is a subclass of E
+    // ? super E   : an unknown type which is a superclass of E
     @Override
-    public boolean addAll(Collection<? extends type> c) {
+    public boolean addAll(Collection<? extends E> c) {
         return addAll(this.length - 1, c);
     }
-
+    
     @Override
-    public boolean addAll(int index, Collection<? extends type> c) {
+    public boolean addAll(int index, Collection<? extends E> c) {
+        Objects.requireNonNull(c, "Collection cannot be null");
         if (c.isEmpty()) {
             return false;
         }
-        while (this.size < c.size()) {
+
+        if (index < 0 || index > this.length) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        while (this.size < this.length + c.size()) {
             doubleArraySize();
         }
-        shiftRight(index, this.length - 1, c.size());
-        System.arraycopy(c, 0, this.array, index, c.size());
 
+        shiftRight(index, this.length - 1, c.size());
+
+        Object[] copy = c.toArray();
+        System.arraycopy(copy, 0, this.array, index, copy.length);
+        
+        this.length += c.size();
         return true;
     }
 
     @Override
-    public List<type> subList(int s, int e) {
-        List<type> sub = new ArrayList<>();
+    public List<E> subList(int s, int e) {
+        List<E> sub = new MyArrayList<>();
         return sub;
     }
 
@@ -151,11 +193,11 @@ public class MyArrayList<type> implements List<type> {
 
     @SuppressWarnings("unchecked")
     @Override
-    public type get(int index) {
+    public E get(int index) {
         if (isOutOfBounds(index)) {
             throw new ArrayIndexOutOfBoundsException();
         }
-        return (type) array[index];
+        return (E) array[index];
     }
 
     private void doubleArraySize() {
@@ -166,22 +208,26 @@ public class MyArrayList<type> implements List<type> {
         System.arraycopy(copy, 0, this.array, 0, this.length);
     }
 
-    public void shiftRight(int index) {
+    private void shiftRight(int index) {
         shiftRight(index, this.length - 1, 1);
     }
 
-    public void shiftRight(int start, int end) {
-        shiftRight(start, end - 1, 1);
-    }
+    // private void shiftRight(int start, int end) {
+    //     shiftRight(start, end - 1, 1);
+    // }
 
-    public void shiftRight(int start, int end, int amount) {
+    private void shiftRight(int start, int end, int amount) {
         int length = end - start + 1;
-        if (start < 0 || end > length || start >= end) {
+        if (start < 0 || end >= this.length || start > end) {
             throw new IndexOutOfBoundsException();
         }
 
         if (amount < 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Amount must be more than 0");
+        }
+
+        if (start + amount + length > this.size) {
+            throw new IndexOutOfBoundsException("Insufficient Capacity");
         }
 
         System.arraycopy(this.array, start, this.array, start + amount, length);
@@ -216,11 +262,11 @@ public class MyArrayList<type> implements List<type> {
 
     @SuppressWarnings("unchecked")
     @Override
-    public type remove(int index) {
+    public E remove(int index) {
         if (isOutOfBounds(index)) {
             throw new ArrayIndexOutOfBoundsException();
         }
-        type dataRemoved = (type) this.array[index];
+        E dataRemoved = (E) this.array[index];
         shiftLeft(index);
         this.length--;
 
@@ -240,7 +286,7 @@ public class MyArrayList<type> implements List<type> {
     }
 
     @Override
-    public type set(int index, type data) {
+    public E set(int index, E data) {
         if (isOutOfBounds(index)) {
             throw new ArrayIndexOutOfBoundsException();
         }

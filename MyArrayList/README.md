@@ -9,3 +9,7 @@ Things learned:
 - exceptions
 - Object root class
 - ArrayList.toArray contract
+
+OTW
+- basic nested class
+- iterable and iterator interface
