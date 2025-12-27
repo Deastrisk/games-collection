@@ -1,6 +1,4 @@
-import java.sql.Struct;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TriangleState implements State {
     public int a = 5;
@@ -14,7 +12,7 @@ public class TriangleState implements State {
 
     public TriangleState() {
         // creates 2d array
-        shape = new ArrayList<>();
+        shape = new ArrayList<>();g
         // initializeShape();
     }
 
