@@ -47,16 +47,21 @@ public class MyArrayList<E> implements List<E> {
 
         @Override
         public int nextIndex() {
-            return cursor;
+            return cursor - 2;
         }
 
         @Override
         public int previousIndex() {
-            return lastReturned - 1;
+            return cursor - 2;
         }
 
         @Override
         public void set(E data) {
+            if (data != null && 
+                !MyArrayList.this.array[lastReturned].getClass().isInstance(data)
+            ) {
+                throw new ClassCastException();
+            }
             MyArrayList.this.array[lastReturned] = data;
             lastReturned = -1;
         }
@@ -170,6 +175,7 @@ public class MyArrayList<E> implements List<E> {
     // ? super E   : an unknown type which is a superclass of E
     @Override
     public boolean addAll(Collection<? extends E> c) {
+        Objects.requireNonNull(c, "Collection cannot be null");
         return addAll(this.length - 1, c);
     }
     
@@ -296,6 +302,10 @@ public class MyArrayList<E> implements List<E> {
 
     @Override
     public void add(int index, Object data) {
+        if (index < 0 || index > this.length) {
+            throw new IndexOutOfBoundsException();
+        }
+
         this.length++;
         if (this.size == this.length) {
             doubleArraySize();
@@ -313,7 +323,7 @@ public class MyArrayList<E> implements List<E> {
     @Override
     public E remove(int index) {
         if (isOutOfBounds(index)) {
-            throw new ArrayIndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException();
         }
         E dataRemoved = (E) this.array[index];
         shiftLeft(index);
@@ -325,7 +335,10 @@ public class MyArrayList<E> implements List<E> {
     @Override
     public boolean remove(Object data) {
         for (int i = 0; i < this.length; i++) {
-            if (data.equals(this.array[i])) return true;
+            if (!data.equals(this.array[i])) continue;
+
+            remove(i);
+            return true;
         }
         return false;
     }
