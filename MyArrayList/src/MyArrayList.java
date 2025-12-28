@@ -338,9 +338,9 @@ public class MyArrayList<E> implements List<E> {
         System.arraycopy(copy, 0, this.array, 0, this.length);
     }
 
-    private void shiftRight(int index) {
-        shiftRight(index, this.length, 1);
-    }
+    // private void shiftRight(int index) {
+    //     shiftRight(index, this.length - 1, 1);
+    // }
 
     // private void shiftRight(int start, int end) {
     //     shiftRight(start, end - 1, 1);
@@ -366,6 +366,8 @@ public class MyArrayList<E> implements List<E> {
         }
 
         if (start + amount + length > this.size) {
+            System.out.println("start : " + start);
+            System.out.println("end   : " + end);
             throw new IndexOutOfBoundsException("Insufficient Capacity");
         }
 
@@ -390,10 +392,11 @@ public class MyArrayList<E> implements List<E> {
             throw new IndexOutOfBoundsException();
         }
 
-        if (this.size <= this.length + 1) {
+        if (this.length >= this.size) {
             doubleArraySize();
         }
-        shiftRight(index);
+        
+        System.arraycopy(this.array, index, this.array, index + 1, this.length - index);
         this.length++;
         this.array[index] = data;
     }
@@ -403,8 +406,8 @@ public class MyArrayList<E> implements List<E> {
         return this.length;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked")
     public E remove(int index) {
         if (isOutOfBounds(index)) {
             throw new IndexOutOfBoundsException();
