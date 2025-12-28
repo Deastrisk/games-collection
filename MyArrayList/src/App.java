@@ -1,3 +1,6 @@
+import java.util.*;
+
+
 public class App {
     public static void main(String[] args) throws Exception {
         MyArrayList<Integer> arr = new MyArrayList<>();
@@ -24,9 +27,15 @@ public class App {
         test.add("java!");
 
         test.addAll(0, test2);
-        for (String string : test) {
-            System.out.println(string);
-        }
+        // for (String string : test) {
+        //     System.out.println(string);
+        // }
+
+        List<String> sub = test.subList(0, 3);
+        // System.out.println(sub.size());
+        // for (String text : sub) {
+        //     System.out.println(text);
+        // }
 
         // toArray TEST
         // Integer[] array = arr.toArray(new Integer[0]);

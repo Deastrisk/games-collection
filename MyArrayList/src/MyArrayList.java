@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class MyArrayList<E> implements List<E> {
-    private Object[] array;
+    protected Object[] array;
     private int length;
     private int size;
 
@@ -218,20 +218,55 @@ public class MyArrayList<E> implements List<E> {
         return true;
     }
 
+    private class SubList extends MyArrayList<E> {
+        private final int offset;
+        private final int subSize;
+
+        public SubList(int s, int e) {
+            super();
+            this.offset = s;
+            this.subSize = e - s;
+        }
+
+        @Override
+        public boolean add(Object data) {
+            Objects.requireNonNull(data, "Data must not be null");
+            if (!data.getClass().isInstance(this.array[offset])) {
+                throw new ClassCastException();
+            }
+
+            add(offset + subSize, data);
+            return true;
+        }
+
+        @Override
+        public void add(int index, Object data) {
+            Objects.requireNonNull(data, "Data must not be null");
+            if (!data.getClass().isInstance(this.array[offset])) {
+                throw new ClassCastException();
+            }
+
+            if (index < 0 || index > subSize) {
+                throw new IndexOutOfBoundsException();
+            }
+
+            MyArrayList.this.shiftRight(offset + index);
+            this.array[offset + index] = data;
+        }
+
+        @Override
+        public int size() {
+            return this.subSize;
+        }
+    }
+
     @Override
     public List<E> subList(int s, int e) {
-        if (s < 0 || e > this.length) {
+        if (s < 0 || e > this.length || s > e) {
             throw new IndexOutOfBoundsException();
         }
-
-        if (s > e) {
-            throw new IllegalArgumentException();
-        }
-
-        // int length = e - s;
-        // List<E> subList = new MyArrayList<>();
         
-        return new MyArrayList<>();
+        return new SubList(s, e);
     }
 
     @Override
