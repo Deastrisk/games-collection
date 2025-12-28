@@ -32,10 +32,10 @@ public class App {
         // }
 
         List<String> sub = test.subList(0, 3);
-        // System.out.println(sub.size());
-        // for (String text : sub) {
-        //     System.out.println(text);
-        // }
+        System.out.println(sub.size());
+        for (int i = 0; i < sub.size(); i++) {
+            System.out.println(sub.get(i));
+        }
 
         // toArray TEST
         // Integer[] array = arr.toArray(new Integer[0]);

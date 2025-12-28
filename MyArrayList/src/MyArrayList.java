@@ -229,29 +229,44 @@ public class MyArrayList<E> implements List<E> {
         }
 
         @Override
-        public boolean add(Object data) {
-            Objects.requireNonNull(data, "Data must not be null");
-            if (!data.getClass().isInstance(this.array[offset])) {
+        @SuppressWarnings("unchecked")
+        public E set(int index, E data) {
+            if (index < 0 || index >= this.subSize) {
+                throw new IndexOutOfBoundsException();
+            }
+
+            if (data != null && this.array[offset + index].getClass().isInstance(data)) {
                 throw new ClassCastException();
             }
 
-            add(offset + subSize, data);
+            E previousData = (E) MyArrayList.this.array[offset + index];
+            MyArrayList.this.array[offset + index] = data;
+
+            return previousData;
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public E get(int index) {
+            if (index < 0 || index > this.subSize) {
+                throw new IndexOutOfBoundsException();
+            }
+
+            return (E) MyArrayList.this.array[offset + index];
+        }
+
+        @Override
+        public boolean add(E data) {
+            MyArrayList.this.add(offset + subSize, data);
             return true;
         }
 
         @Override
-        public void add(int index, Object data) {
-            Objects.requireNonNull(data, "Data must not be null");
-            if (!data.getClass().isInstance(this.array[offset])) {
-                throw new ClassCastException();
-            }
-
+        public void add(int index, E data) {
             if (index < 0 || index > subSize) {
                 throw new IndexOutOfBoundsException();
             }
-
-            MyArrayList.this.shiftRight(offset + index);
-            this.array[offset + index] = data;
+            MyArrayList.this.add(offset + index, data);
         }
 
         @Override
@@ -324,16 +339,25 @@ public class MyArrayList<E> implements List<E> {
     }
 
     private void shiftRight(int index) {
-        shiftRight(index, this.length - 1, 1);
+        shiftRight(index, this.length, 1);
     }
 
     // private void shiftRight(int start, int end) {
     //     shiftRight(start, end - 1, 1);
     // }
 
+    // start : inclusive
+    // end   : inclusive
     private void shiftRight(int start, int end, int amount) {
         int length = end - start + 1;
-        if (start < 0 || end >= this.length || start > end) {
+        if (start < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        if (end > this.length) {
+            throw new IndexOutOfBoundsException();
+        }
+            
+        if(start > end) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -355,22 +379,22 @@ public class MyArrayList<E> implements List<E> {
     }
 
     @Override
-    public boolean add(Object data) {
+    public boolean add(E data) {
         add(this.length, data);
         return true;
     }
 
     @Override
-    public void add(int index, Object data) {
+    public void add(int index, E data) {
         if (index < 0 || index > this.length) {
             throw new IndexOutOfBoundsException();
         }
 
-        this.length++;
-        if (this.size == this.length) {
+        if (this.size <= this.length + 1) {
             doubleArraySize();
         }
         shiftRight(index);
+        this.length++;
         this.array[index] = data;
     }
 
@@ -408,14 +432,20 @@ public class MyArrayList<E> implements List<E> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public E set(int index, E data) {
         if (isOutOfBounds(index)) {
-            throw new ArrayIndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException();
         }
 
+        if (!data.getClass().isInstance(this.array[0])) {
+            throw new ClassCastException();
+        }
+
+        E previousData = (E) this.array[index];
         this.array[index] = data;
 
-        return data;
+        return previousData;
     }
 
     @Override
