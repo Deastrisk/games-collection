@@ -1,5 +1,4 @@
 
-import java.util.InputMismatchException;
 
 public class Start implements Pages<Integer> {
     @Override
@@ -27,7 +26,7 @@ public class Start implements Pages<Integer> {
                     continue;
                 }
                 return inp;
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Input must be number.");
             }
         }
@@ -36,7 +35,7 @@ public class Start implements Pages<Integer> {
     @Override
     public PageType handleInput(Integer inp) {
         switch (inp) {
-            case 1: return PageType.MAIN_MENU;
+            case 1: return PageType.PLAYER_PICK;
             case 2: return PageType.EXIT;
             default: return PageType.START;
         }
