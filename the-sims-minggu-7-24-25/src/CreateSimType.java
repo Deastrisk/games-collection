@@ -1,6 +1,5 @@
-public class CreateSimType {
-    private Sims
-    public CreateSimType(String householdName) {
-        
+public class CreateSimType extends CreateSimHousehold {
+    public CreateSimType(HouseholdData household, String householdName) {
+        super(household, householdName);
     }
 }

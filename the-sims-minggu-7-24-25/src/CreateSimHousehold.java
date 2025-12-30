@@ -1,6 +1,10 @@
 public class CreateSimHousehold implements Pages<Integer> {
+    HouseholdData household;
+    String householdName;
+
     public CreateSimHousehold(HouseholdData household, String name) {
-        
+        this.household = household;
+        this.householdName = name;
     }
 
     @Override
@@ -38,9 +42,15 @@ public class CreateSimHousehold implements Pages<Integer> {
     @Override
     public PageType handleInput(Integer inp) {
         switch (inp) {
-            case 1: return PageType.CREATE_SIM;
-            case 2: return PageType.MANAGE_HOUSEHOLD;
-            case 3: return PageType.START;
+            case 1: 
+                householdName = "Willow Creek";
+                return PageType.CREATE_SIM_TYPE;
+            case 2: 
+                householdName = "Willow Creek";
+                return PageType.CREATE_SIM_TYPE;
+            case 3: 
+                householdName = "Willow Creek";
+                return PageType.CREATE_SIM_TYPE;
             default: return PageType.MAIN_MENU;
         }
     }

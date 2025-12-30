@@ -35,7 +35,7 @@ public class Start implements Pages<Integer> {
     @Override
     public PageType handleInput(Integer inp) {
         switch (inp) {
-            case 1: return PageType.PLAYER_PICK;
+            case 1: return PageType.MAIN_MENU;
             case 2: return PageType.EXIT;
             default: return PageType.START;
         }
