@@ -1,8 +1,8 @@
 public class CreateSimHousehold implements Pages<Integer> {
     HouseholdData household;
-    String householdName;
+    Text householdName;
 
-    public CreateSimHousehold(HouseholdData household, String name) {
+    public CreateSimHousehold(HouseholdData household, Text name) {
         this.household = household;
         this.householdName = name;
     }
@@ -43,14 +43,15 @@ public class CreateSimHousehold implements Pages<Integer> {
     public PageType handleInput(Integer inp) {
         switch (inp) {
             case 1: 
-                householdName = "Willow Creek";
+                householdName.set("Willow Creek");
                 return PageType.CREATE_SIM_TYPE;
             case 2: 
-                householdName = "Willow Creek";
+                householdName.set("Oasis Springs");
                 return PageType.CREATE_SIM_TYPE;
             case 3: 
-                householdName = "Willow Creek";
+                householdName.set("Newcrest");
                 return PageType.CREATE_SIM_TYPE;
+
             default: return PageType.MAIN_MENU;
         }
     }

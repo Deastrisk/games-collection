@@ -5,7 +5,7 @@ public class App {
     public static final Scanner scanner = new Scanner(System.in);
     PageType page = PageType.START;
     HouseholdData householdData = new HouseholdData();
-    String houseName;
+    Text houseName = new Text();
 
     private final Map<PageType, Pages> pages = Map.ofEntries(
         Map.entry(PageType.START, new Start()),

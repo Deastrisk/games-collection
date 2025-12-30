@@ -43,5 +43,6 @@ public class HouseholdDetails {
 
     public void addSims(Sims sim) {
         simsList.add(sim);
+        count++;
     }
 }

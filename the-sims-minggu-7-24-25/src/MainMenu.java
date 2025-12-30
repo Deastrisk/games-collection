@@ -12,9 +12,9 @@ public class MainMenu implements Pages<Integer> {
         System.out.println("+================ SIMS ==============+");
         System.out.println("|        NEIGHBORHOOD HOUSEHOLD      |");
         System.out.println("+------------------------------------+");
-        System.out.printf("| 1. Willow Creek - Residents: %-6s|\n", household.residents.get("Willow Creek"));
-        System.out.printf("| 2. Oasis Springs - Residents: %-5s|\n", household.residents.get("Oasis Springs"));
-        System.out.printf("| 3. Newcrest - Residents: %-10s|\n", household.residents.get("Newcrest"));
+        System.out.printf("| 1. Willow Creek - Residents: %-6s|\n", household.residents.get("Willow Creek").getCount());
+        System.out.printf("| 2. Oasis Springs - Residents: %-5s|\n", household.residents.get("Oasis Springs").getCount());
+        System.out.printf("| 3. Newcrest - Residents: %-10s|\n", household.residents.get("Newcrest").getCount());
         System.out.println("+====================================+");
         System.out.println("| 1. Create a Sim                    |");
         System.out.println("| 2. Manage a Household              |");
