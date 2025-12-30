@@ -48,7 +48,7 @@ public class MainMenu implements Pages<Integer> {
     public PageType handleInput(Integer inp) {
         switch (inp) {
             case 1: return PageType.CREATE_SIM_HOUSEHOLD;
-            case 2: return PageType.MANAGE_HOUSEHOLD;
+            case 2: return PageType.MANAGE_HOUSEHOLD_SELECT;
             case 3: return PageType.START;
             default: return PageType.MAIN_MENU;
         }
