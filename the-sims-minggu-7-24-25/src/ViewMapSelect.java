@@ -1,10 +1,10 @@
-public class SimDetailsSelect implements Pages<Integer> {
+public class ViewMapSelect implements Pages<Integer> {
     protected HouseholdData householdData;
     protected Text selectedSimName;
     protected HouseholdDetails householdDetails;
     protected Text householdName;
 
-    public SimDetailsSelect(HouseholdData householdData, Text selectedSimName, Text householdName) {
+    public ViewMapSelect(HouseholdData householdData, Text householdName, Text selectedSimName) {
         this.householdData = householdData;
         this.selectedSimName = selectedSimName;
         this.householdName = householdName;

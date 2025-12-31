@@ -1,5 +1,10 @@
 public class Alien extends Sims {
     public Alien(String name) {
-        this.name = name;
+        super(name, 0);
+    }
+
+    @Override
+    public String getType() {
+        return "Alien";
     }
 }
