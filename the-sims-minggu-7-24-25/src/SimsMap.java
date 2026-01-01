@@ -28,6 +28,12 @@ public class SimsMap {
         return defaultXSize;
     }
 
+    public void clear() {
+        for (List<Character> row : map) {
+            row.clear();
+        }
+    }
+
     public char get(int y, int x) {
         if (x < 0 || x >= defaultXSize || y < 0 || y >= defaultYSize) {
             throw new IndexOutOfBoundsException();

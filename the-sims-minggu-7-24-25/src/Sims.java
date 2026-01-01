@@ -6,11 +6,11 @@ public abstract class Sims {
     protected String mood = "Fine";
     protected int hunger = 50;
     protected int energy = 50;
-    protected int thrist;
+    protected int thirst;
 
     public Sims(String name, int thirst) {
         this.name = name;
-        this.thrist = thirst;
+        this.thirst = thirst;
     }
 
     public abstract String getType();

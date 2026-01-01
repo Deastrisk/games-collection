@@ -9,6 +9,8 @@ public class ViewMap implements Pages {
     private Actions action = Actions.INVALID;
 
     private String message = null;
+    private HouseholdDetails householdDetails;
+    private SimsMap map;
 
     private enum Actions {
         MOVE_UP,    // W
@@ -32,9 +34,9 @@ public class ViewMap implements Pages {
 
     @Override
     public PageType IODisplay() {
-        HouseholdDetails householdDetails = householdData.details.get(householdName.get());
+        householdDetails = householdData.details.get(householdName.get());
         player = householdDetails.getSim(simName.get());
-        SimsMap map = householdDetails.map;
+        map = householdDetails.map;
 
         while (true) {
             // 13
@@ -61,15 +63,18 @@ public class ViewMap implements Pages {
             if (message != null)
                 System.out.println(message);
 
-            System.out.print("[WASD] - Move Sim\n" +
-                             "[E] - Eat\n" +
-                             "[L] - Sleep\n" + 
-                             "[I] - Learn new skill\n" +
-                             "[X] - Exit view map\n");
+            System.out.print("""
+                            [WASD] - Move Sim
+                            [E] - Eat
+                            [L] - Sleep
+                            [I] - Learn new skill
+                            [X] - Exit view map
+                             """);
 
             char inp = getInput();
             if (handleInput(inp) == PageType.MANAGE_HOUSEHOLD_INFORMATION) {
-                return PageType.CREATE_SIM_HOUSEHOLD;
+                householdDetails.map.clear();
+                return PageType.MANAGE_HOUSEHOLD_INFORMATION;
             };
         }   
     }
@@ -104,7 +109,7 @@ public class ViewMap implements Pages {
 
             case 'E':
             case 'e':
-                handleInteraction();
+                handleEat();
                 action = Actions.EAT;
                 return PageType.MAP;
 
@@ -127,9 +132,77 @@ public class ViewMap implements Pages {
         }
     }
 
+    public void handleEat() {
+        String type = player.getType();
+        if (type.equals("Human") || type.equals("Alien")) {
+            player.hunger += 20;
+            player.mood = "Satisfied";
+            message = """
+                    
+                    """;
+
+        } else if (type.equals("Vampire")) {
+            player.thirst -= 20;
+            player.hunger += 20;
+        }
+
+        if (player.thirst < 0 && type.equals("Vampire")) player.thirst = 0;
+        if (player.hunger > 50) player.hunger = 50;
+    }
+
+    // males buat class baru bilek
+    public void distantInteraction() {
+        System.out.println("Chooose a Sim to interact with:");
+        if (householdDetails.getCount() == 0) {
+            System.out.println("No other Sims to interact with.");
+            // System.out.print(">> ");
+
+            App.scanner.nextLine();
+            return;
+        }
+
+        for (int i = 0; i < householdDetails.getCount(); i++) {
+            System.out.println((i + 1) + ". " + householdDetails.getSim(i).name);
+        }
+
+        int inp = chooseSim();
+    }
+
+    public void randomizeSimLoc() {
+        for (int i = 0; i < householdDetails.getCount();) {
+            int x = (int) (Math.random() * map.width());
+            int y = (int) (Math.random() * map.height());
+
+            if (householdDetails.map.get(y, x) != ' ') {
+                continue;
+            }
+
+            householdDetails.map.set(y, x, householdDetails.getSim(i).name.charAt(0));
+            i++;
+        }
+    }
+
+    public int chooseSim() {
+        while (true) { 
+            System.out.print(">> ");
+            String inpStr = App.scanner.nextLine();
+
+            try {
+                int inp = Integer.parseInt(inpStr);
+                if (inp < 0 || inp > householdDetails.getCount()) {
+                    System.out.println("Must select one of the Sims.");
+                    continue;
+                }
+                return inp;
+            } catch (NumberFormatException e) {
+                System.out.println("Input must be a number.");
+            }
+        }
+    }
+
     public void handleInteraction() {
         if (other == null) {
-            message = ""
+            distantInteraction();
             return;
         }
 

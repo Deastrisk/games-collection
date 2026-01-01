@@ -1,4 +1,3 @@
-import org.w3c.dom.Text;
 
 public class SimDetailsInformation extends SimDetailsSelect {
     // private HouseholdData householdData;
@@ -24,7 +23,9 @@ public class SimDetailsInformation extends SimDetailsSelect {
         System.out.println("+------------------------+");
         System.out.println("Energy: " + this.sim.energy);
         System.out.println("Hunger: " + this.sim.hunger);
-        System.out.println("Thirst: " + this.sim.thrist);
+        if (this.sim.getType().equals("Vampire")) {
+            System.out.println("Thirst: " + this.sim.thirst);
+        }
         System.out.println("Mood: " + this.sim.mood);
         System.out.println("+------------------------+");
         
