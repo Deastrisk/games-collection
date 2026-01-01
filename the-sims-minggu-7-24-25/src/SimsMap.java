@@ -30,7 +30,9 @@ public class SimsMap {
 
     public void clear() {
         for (List<Character> row : map) {
-            row.clear();
+            for (Character c : row) {
+                c = ' ';
+            }
         }
     }
 

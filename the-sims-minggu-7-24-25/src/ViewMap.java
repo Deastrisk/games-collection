@@ -137,17 +137,21 @@ public class ViewMap implements Pages {
         if (type.equals("Human") || type.equals("Alien")) {
             player.hunger += 20;
             player.mood = "Satisfied";
-            message = """
-                    
-                    """;
+            if (player.hunger > 50) player.hunger = 50;
+
+            message = player.name + " eats.\n" +
+                    player.name + " now has a hunger level of " + player.hunger;
 
         } else if (type.equals("Vampire")) {
             player.thirst -= 20;
             player.hunger += 20;
+            if (player.thirst < 0 && type.equals("Vampire")) player.thirst = 0;
+            if (player.hunger > 50) player.hunger = 50;
+            
+            message = player.name + " eats and starts to feel thirsty.\n" + 
+                    player.name + " now has a hunger level of " + player.hunger;
         }
 
-        if (player.thirst < 0 && type.equals("Vampire")) player.thirst = 0;
-        if (player.hunger > 50) player.hunger = 50;
     }
 
     // males buat class baru bilek
