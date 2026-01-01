@@ -1,7 +1,7 @@
 
 
 public class MainMenu implements Pages {
-    private HouseholdData household;
+    private final HouseholdData household;
 
     public MainMenu(HouseholdData household) {
         this.household = household;

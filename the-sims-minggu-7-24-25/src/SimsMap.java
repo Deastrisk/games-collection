@@ -4,7 +4,7 @@ import java.util.List;
 public class SimsMap {
     private final List<List<Character>> map;
     private final int defaultXSize = 13;
-    private final int defaultYSize = 13;
+    private final int defaultYSize = 5;
 
     public SimsMap() {
         map = new ArrayList<>(defaultYSize);
