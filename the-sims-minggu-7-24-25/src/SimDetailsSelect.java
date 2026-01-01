@@ -1,4 +1,4 @@
-public class SimDetailsSelect implements Pages<Integer> {
+public class SimDetailsSelect implements Pages {
     protected HouseholdData householdData;
     protected Text selectedSimName;
     protected HouseholdDetails householdDetails;
@@ -12,7 +12,7 @@ public class SimDetailsSelect implements Pages<Integer> {
     
     @Override
     public PageType IODisplay() {
-        this.householdDetails = householdData.residents.get(householdName.get());
+        this.householdDetails = householdData.details.get(householdName.get());
 
         System.out.println("Select a Sim to View Details:");
         if (householdDetails.getCount() == 0) {
@@ -50,9 +50,9 @@ public class SimDetailsSelect implements Pages<Integer> {
     }
 
     @Override
-    public PageType handleInput(Integer inp) {
+    public PageType handleInput(Object inp) {
 
-        selectedSimName.set(householdDetails.getSim(inp - 1).name);
+        selectedSimName.set(householdDetails.getSim((int) inp - 1).name);
         return PageType.SIM_DETAILS_INFORMATION;
     }
 }

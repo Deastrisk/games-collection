@@ -1,4 +1,4 @@
-public class ManageHouseholdInformation implements Pages<Integer> {
+public class ManageHouseholdInformation implements Pages {
     HouseholdData household;
     Text householdName;
     HouseholdDetails householdDetails;
@@ -10,7 +10,7 @@ public class ManageHouseholdInformation implements Pages<Integer> {
     
     @Override
     public PageType IODisplay() {
-        this.householdDetails = household.residents.get(householdName.get());
+        this.householdDetails = household.details.get(householdName.get());
         
         System.out.println("+======================+");
         System.out.println(householdName.get().toUpperCase());
@@ -53,8 +53,8 @@ public class ManageHouseholdInformation implements Pages<Integer> {
     }
 
     @Override
-    public PageType handleInput(Integer inp) {
-        switch (inp) {
+    public PageType handleInput(Object inp) {
+        switch ((int) inp) {
             case 0: return PageType.MAIN_MENU;
             case 1: return PageType.SIM_DETAILS_SELECT;
             case 2: return PageType.MAP;

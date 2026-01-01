@@ -1,4 +1,4 @@
-public class CreateSimHousehold implements Pages<Integer> {
+public class CreateSimHousehold implements Pages {
     HouseholdData household;
     Text householdName;
 
@@ -40,8 +40,8 @@ public class CreateSimHousehold implements Pages<Integer> {
     }
 
     @Override
-    public PageType handleInput(Integer inp) {
-        switch (inp) {
+    public PageType handleInput(Object inp) {
+        switch ((int) inp) {
             case 1: 
                 householdName.set("Willow Creek");
                 return PageType.CREATE_SIM_TYPE;

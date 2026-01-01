@@ -1,6 +1,6 @@
-interface Pages<T> {
+interface Pages {
     public PageType IODisplay();
 
-    public T getInput();
-    public PageType handleInput(T inp);
+    public Object getInput();
+    public PageType handleInput(Object inp);
 }

@@ -5,9 +5,11 @@ import java.util.Objects;
 public class HouseholdDetails {
     private int count = 0;
     private final List<Sims> simsList;
+    public final SimsMap map;
 
     public HouseholdDetails() {
         this.simsList = new ArrayList<>();
+        this.map = new SimsMap();
     }
 
     public int getCount() {

@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class App {
     public static final Scanner scanner = new Scanner(System.in);
+
     PageType page = PageType.START;
     HouseholdData householdData = new HouseholdData();
     Text houseName = new Text();

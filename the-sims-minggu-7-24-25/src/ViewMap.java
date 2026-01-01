@@ -1,7 +1,7 @@
-public class ViewMap implements Pages<Character> {
-    private HouseholdData householdData;
-    private Text householdName;
-    private Text simName;
+public class ViewMap implements Pages {
+    private final HouseholdData householdData;
+    private final Text householdName;
+    private final Text simName;
 
     public ViewMap(HouseholdData householdData, Text householdName, Text selectedSimName) {
         this.householdData = householdData;
@@ -11,19 +11,40 @@ public class ViewMap implements Pages<Character> {
 
     @Override
     public PageType IODisplay() {
-        while (true) { 
+        HouseholdDetails householdDetails = householdData.details.get(householdName.get());
+        SimsMap map = householdDetails.map;
+        while (true) {
+            // 13
+            System.out.println("+=============+");
+            for (int i = 0; i < map.height(); i++) {
+                System.out.print("|");
+                for (int j = 0; j < map.width(); j++) {
+                    System.out.print(map.get(i, j));
+                }
+                System.out.println("|");
+            }
+            System.out.println("+=============+");
             break;
         }
         return PageType.CREATE_SIM_HOUSEHOLD;
     }
 
     @Override
-    public PageType handleInput(Character inp) {
+    // handles chars
+    public PageType handleInput(Object inp) {
         return PageType.CREATE_SIM_HOUSEHOLD;
     }
 
     @Override
     public Character getInput() {
-        return 's';
+        while (true) { 
+            String inpStr = App.scanner.nextLine();
+            if (inpStr == null || !inpStr.isEmpty()) {
+                System.out.println("Must input a char.");
+                continue;
+            }
+            
+            return inpStr.charAt(0);
+        }
     }
 }

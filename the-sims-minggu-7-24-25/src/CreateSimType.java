@@ -37,16 +37,16 @@ public class CreateSimType extends CreateSimHousehold {
     }
 
     @Override
-    public PageType handleInput(Integer input) {
-        switch (input) {
+    public PageType handleInput(Object input) {
+        switch ((int) input) {
             case 1: 
-                household.residents.get(householdName.get()).addSims(new Human(name));
+                household.details.get(householdName.get()).addSims(new Human(name));
                 return PageType.MAIN_MENU;
             case 2: 
-                household.residents.get(householdName.get()).addSims(new Vampire(name));
+                household.details.get(householdName.get()).addSims(new Vampire(name));
                 return PageType.MAIN_MENU;
             case 3: 
-                household.residents.get(householdName.get()).addSims(new Alien(name));
+                household.details.get(householdName.get()).addSims(new Alien(name));
                 return PageType.MAIN_MENU;
             default: return PageType.MAIN_MENU;
         }

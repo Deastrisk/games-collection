@@ -1,6 +1,6 @@
 
 
-public class MainMenu implements Pages<Integer> {
+public class MainMenu implements Pages {
     private HouseholdData household;
 
     public MainMenu(HouseholdData household) {
@@ -12,9 +12,9 @@ public class MainMenu implements Pages<Integer> {
         System.out.println("+================ SIMS ==============+");
         System.out.println("|        NEIGHBORHOOD HOUSEHOLD      |");
         System.out.println("+------------------------------------+");
-        System.out.printf("| 1. Willow Creek - Residents: %-6s|\n", household.residents.get("Willow Creek").getCount());
-        System.out.printf("| 2. Oasis Springs - Residents: %-5s|\n", household.residents.get("Oasis Springs").getCount());
-        System.out.printf("| 3. Newcrest - Residents: %-10s|\n", household.residents.get("Newcrest").getCount());
+        System.out.printf("| 1. Willow Creek - Residents: %-6s|\n", household.details.get("Willow Creek").getCount());
+        System.out.printf("| 2. Oasis Springs - Residents: %-5s|\n", household.details.get("Oasis Springs").getCount());
+        System.out.printf("| 3. Newcrest - Residents: %-10s|\n", household.details.get("Newcrest").getCount());
         System.out.println("+====================================+");
         System.out.println("| 1. Create a Sim                    |");
         System.out.println("| 2. Manage a Household              |");
@@ -45,8 +45,8 @@ public class MainMenu implements Pages<Integer> {
     }
 
     @Override
-    public PageType handleInput(Integer inp) {
-        switch (inp) {
+    public PageType handleInput(Object inp) {
+        switch ((int) inp) {
             case 1: return PageType.CREATE_SIM_HOUSEHOLD;
             case 2: return PageType.MANAGE_HOUSEHOLD_SELECT;
             case 3: return PageType.START;

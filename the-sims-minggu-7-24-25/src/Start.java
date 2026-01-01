@@ -1,6 +1,6 @@
 
 
-public class Start implements Pages<Integer> {
+public class Start implements Pages {
     @Override
     public PageType IODisplay() {
         System.out.println("+===================+");
@@ -33,8 +33,8 @@ public class Start implements Pages<Integer> {
     }
 
     @Override
-    public PageType handleInput(Integer inp) {
-        switch (inp) {
+    public PageType handleInput(Object inp) {
+        switch ((int) inp) {
             case 1: return PageType.MAIN_MENU;
             case 2: return PageType.EXIT;
             default: return PageType.START;

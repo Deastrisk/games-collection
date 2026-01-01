@@ -13,7 +13,7 @@ public class SimDetailsInformation extends SimDetailsSelect {
     
     @Override
     public PageType IODisplay() {
-        this.householdDetails = householdData.residents.get(this.householdName.get());
+        this.householdDetails = householdData.details.get(this.householdName.get());
         this.sim = householdDetails.getSim(simName.get());
 
         System.out.println("+========================+");
@@ -58,7 +58,7 @@ public class SimDetailsInformation extends SimDetailsSelect {
     }
 
     @Override
-    public PageType handleInput(Integer inp) {
+    public PageType handleInput(Object inp) {
         return PageType.MANAGE_HOUSEHOLD_INFORMATION;
     }
 }
