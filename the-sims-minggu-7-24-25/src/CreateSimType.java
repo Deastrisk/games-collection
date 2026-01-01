@@ -2,7 +2,7 @@
 public class CreateSimType extends CreateSimHousehold {
     String name = null;
 
-    public CreateSimType(HouseholdData household, Text householdName) {
+    public CreateSimType(HouseholdData household, Wrapper<String> householdName) {
         super(household, householdName);
         this.name = householdName.get();
     }

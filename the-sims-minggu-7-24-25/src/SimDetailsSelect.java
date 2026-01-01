@@ -1,10 +1,11 @@
+
 public class SimDetailsSelect implements Pages {
     protected HouseholdData householdData;
-    protected Text selectedSimName;
+    protected Wrapper<String> selectedSimName;
     protected HouseholdDetails householdDetails;
-    protected Text householdName;
+    protected Wrapper<String> householdName;
 
-    public SimDetailsSelect(HouseholdData householdData, Text selectedSimName, Text householdName) {
+    public SimDetailsSelect(HouseholdData householdData, Wrapper<String> selectedSimName, Wrapper<String> householdName) {
         this.householdData = householdData;
         this.selectedSimName = selectedSimName;
         this.householdName = householdName;

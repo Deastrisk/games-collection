@@ -1,10 +1,11 @@
+
 public class ViewMapSelect implements Pages {
     protected HouseholdData householdData;
-    protected Text selectedSimName;
+    protected Wrapper<String> selectedSimName;
     protected HouseholdDetails householdDetails;
-    protected Text householdName;
+    protected Wrapper<String> householdName;
 
-    public ViewMapSelect(HouseholdData householdData, Text householdName, Text selectedSimName) {
+    public ViewMapSelect(HouseholdData householdData, Wrapper<String> householdName, Wrapper<String> selectedSimName) {
         this.householdData = householdData;
         this.selectedSimName = selectedSimName;
         this.householdName = householdName;
@@ -52,6 +53,6 @@ public class ViewMapSelect implements Pages {
     @Override
     public PageType handleInput(Object inp) {
         selectedSimName.set(householdDetails.getSim((int) inp - 1).name);
-        return PageType.SIM_DETAILS_INFORMATION;
+        return PageType.MAP;
     }
 }

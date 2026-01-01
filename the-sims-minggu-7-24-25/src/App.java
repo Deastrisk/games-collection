@@ -6,8 +6,8 @@ public class App {
 
     PageType page = PageType.START;
     HouseholdData householdData = new HouseholdData();
-    Text houseName = new Text();
-    Text selectedSimName = new Text();
+    Wrapper<String> houseName = new Wrapper<>();
+    Wrapper<String> selectedSimName = new Wrapper<>();
 
     private final Map<PageType, Pages> pages = Map.ofEntries(
         Map.entry(PageType.START, new Start()),

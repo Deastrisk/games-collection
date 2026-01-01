@@ -1,8 +1,8 @@
 public class CreateSimHousehold implements Pages {
     HouseholdData household;
-    Text householdName;
+    Wrapper<String> householdName;
 
-    public CreateSimHousehold(HouseholdData household, Text name) {
+    public CreateSimHousehold(HouseholdData household, Wrapper<String> name) {
         this.household = household;
         this.householdName = name;
     }

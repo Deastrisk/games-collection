@@ -1,10 +1,12 @@
 public class ViewMap implements Pages {
     private final HouseholdData householdData;
-    private final Text householdName;
-    private final Text simName;
+    private final Wrapper<String> householdName;
+    private final Wrapper<String> simName;
 
     private Sims player;
     private Sims other;
+
+    private Actions action = Actions.INVALID;
 
     private String message = null;
 
@@ -22,7 +24,7 @@ public class ViewMap implements Pages {
         INVALID     // pressed a key which doesn't exists
     }
 
-    public ViewMap(HouseholdData householdData, Text householdName, Text selectedSimName) {
+    public ViewMap(HouseholdData householdData, Wrapper<String> householdName, Wrapper<String> selectedSimName) {
         this.householdData = householdData;
         this.householdName = householdName;
         this.simName = selectedSimName;
@@ -66,79 +68,94 @@ public class ViewMap implements Pages {
                              "[X] - Exit view map\n");
 
             char inp = getInput();
-            if (handleInput(inp) == Actions.EXIT) {
-                return PageType.MANAGE_HOUSEHOLD_INFORMATION;
-            }
+            if (handleInput(inp) == PageType.MANAGE_HOUSEHOLD_INFORMATION) {
+                return PageType.CREATE_SIM_HOUSEHOLD;
+            };
         }   
     }
 
     // handles chars
     @Override
-    public Actions handleInput(Object inp) {
+    public PageType handleInput(Object inp) {
         switch ((char) inp) {
             case 'W':
             case 'w':
                 message = "Moving Zuzu...";
-                return Actions.MOVE_UP;
+                action = Actions.MOVE_UP;
+                return PageType.MAP;
                 
             case 'S':
             case 's':
                 message = "Moving Zuzu...";
-                return Actions.MOVE_DOWN;
+                action = Actions.MOVE_DOWN;
+                return PageType.MAP;
 
             case 'A':
             case 'a':
                 message = "Moving Zuzu...";
-                return Actions.MOVE_LEFT;
+                action = Actions.MOVE_LEFT;
+                return PageType.MAP;
 
             case 'D':
             case 'd':
                 message = "Moving Zuzu...";
-                return Actions.MOVE_RIGHT;
+                action = Actions.MOVE_RIGHT;
+                return PageType.MAP;
 
             case 'E':
             case 'e':
-                handleInteraction(player, other);
-                return Actions.EAT;
+                handleInteraction();
+                action = Actions.EAT;
+                return PageType.MAP;
 
             case 'I':
             case 'i':
-                return Actions.LEARN;
+                action = Actions.LEARN;
+                return PageType.MAP;
             
             case 'L':
             case 'l':
-                return Actions.SLEEP;
+                action = Actions.SLEEP;
+                return PageType.MAP;
 
             case 'X':
             case 'x':
-                return Actions.EXIT;
+                action = Actions.EXIT;
+                return PageType.MANAGE_HOUSEHOLD_INFORMATION;
+
+            default: return PageType.MAP;
         }
     }
 
     public void handleInteraction() {
-        if (player.getType() == "Human" || player.getType() == "Vampire") {
+        if (other == null) {
+            message = ""
+            return;
+        }
+
+        if (player.getType().equals("Human") || player.getType().equals("Vampire")) {
             message = player.name + " interacts with " + other.name + " and feels Happy.";
             player.mood = "Happy";
             player.energy -= 20;
         }
 
-        else if (player.getType() == "Alien") {
+        else if (player.getType().equals("Alien")) {
             message = player.name + " interacts with " + other.name + " and feels Curious.\n" + player.name + " is ";
             
             String toAppend = "";
-            if (other.getType() == "Human") {
+            if (other.getType().equals("Human")) {
                 player.energy -= 30;
                 player.mood = "Curious";
                 toAppend = "curious about human behaviour.";
             }
             
-            else if (other.getType() == "Vampire") {
+            else if (other.getType().equals("Vampire")) {
                 player.energy -= 20;
                 player.mood = "Intrigued";
                 toAppend = "intrigued by the vampire's abilities.";
             }
             
-            else if (other.getType() == "Alien") {
+            else if (other.getType().equals("Alien")) {
                 player.energy -= 10;
                 player.mood = "Happy";
                 toAppend = "happy to see another alien.";

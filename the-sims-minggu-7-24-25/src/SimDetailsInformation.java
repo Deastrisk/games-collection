@@ -1,11 +1,13 @@
+import org.w3c.dom.Text;
+
 public class SimDetailsInformation extends SimDetailsSelect {
     // private HouseholdData householdData;
     // private Text householdName;
     private Sims sim;
-    private final Text simName;
+    private final Wrapper<String> simName;
     // private HouseholdDetails householdDetails;
 
-    public SimDetailsInformation(HouseholdData householdData, Text householdName, Text simName) {
+    public SimDetailsInformation(HouseholdData householdData, Wrapper<String> householdName, Wrapper<String> simName) {
         super(householdData, simName, householdName);
         this.householdName = householdName;
         this.simName = simName;

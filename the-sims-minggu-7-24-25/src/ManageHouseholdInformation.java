@@ -1,9 +1,10 @@
+
 public class ManageHouseholdInformation implements Pages {
     HouseholdData household;
-    Text householdName;
+    Wrapper<String> householdName;
     HouseholdDetails householdDetails;
 
-    public ManageHouseholdInformation(HouseholdData household, Text name) {
+    public ManageHouseholdInformation(HouseholdData household, Wrapper<String> name) {
         this.household = household;
         this.householdName = name;
     }
@@ -57,7 +58,7 @@ public class ManageHouseholdInformation implements Pages {
         switch ((int) inp) {
             case 0: return PageType.MAIN_MENU;
             case 1: return PageType.SIM_DETAILS_SELECT;
-            case 2: return PageType.MAP;
+            case 2: return PageType.MAP_SELECT;
             default: return PageType.MANAGE_HOUSEHOLD_INFORMATION;
         }
     }
