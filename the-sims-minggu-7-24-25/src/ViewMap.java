@@ -115,7 +115,7 @@ public class ViewMap implements Pages {
         }
     }
 
-    public String handleInteraction() {
+    public void handleInteraction() {
         if (player.getType() == "Human" || player.getType() == "Vampire") {
             message = player.name + " interacts with " + other.name + " and feels Happy.";
             player.mood = "Happy";
