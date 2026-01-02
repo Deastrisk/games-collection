@@ -1,12 +1,14 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SimsMap {
     private final List<List<Character>> map;
+    public List<Sims> simsList;
     private final int defaultXSize = 13;
     private final int defaultYSize = 5;
 
-    public SimsMap() {
+    public SimsMap(List<Sims> simsList) {
         map = new ArrayList<>(defaultYSize);
 
         for (int i = 0; i < defaultYSize; i++) {
@@ -18,6 +20,8 @@ public class SimsMap {
 
             map.add(row);
         }
+
+        this.simsList = simsList;
     }
 
     public int height() {
@@ -30,9 +34,12 @@ public class SimsMap {
 
     public void clear() {
         for (List<Character> row : map) {
-            for (Character c : row) {
-                c = ' ';
-            }
+            Collections.fill(row, ' ');
+        }
+
+        // clears sim position
+        for (int i = 0; i < simsList.size(); i++) {
+            simsList.get(i).pos.set(-1, -1);
         }
     }
 

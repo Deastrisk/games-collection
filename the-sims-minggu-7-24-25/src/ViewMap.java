@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 
 public class ViewMap implements Pages {
     private final HouseholdData householdData;
@@ -9,7 +7,6 @@ public class ViewMap implements Pages {
     private Sims player;
     private Sims other;
 
-    private List<Coordinate> simsPos;
     private Actions action;
 
     private String message = null;
@@ -35,8 +32,6 @@ public class ViewMap implements Pages {
         this.householdData = householdData;
         this.householdName = householdName;
         this.simName = selectedSimName;
-
-        this.simsPos = new ArrayList<>();
     }
 
     @Override
@@ -75,6 +70,9 @@ public class ViewMap implements Pages {
             System.out.print("""
                             [WASD] - Move Sim
                             [E] - Eat
+                             """ + 
+                             (player.getType().equals("Vampire") ? "[M] - Drink\n" : "") +
+                             """
                             [L] - Sleep
                             [I] - Learn new skill
                             [X] - Exit view map
@@ -128,7 +126,7 @@ public class ViewMap implements Pages {
                     break;
                 }
 
-                // handleDrink();
+                handleDrink();
                 action = Actions.DRINK;
                 return PageType.MAP;
 
@@ -139,6 +137,7 @@ public class ViewMap implements Pages {
             
             case 'L':
             case 'l':
+                handleSleep();
                 action = Actions.SLEEP;
                 return PageType.MAP;
 
@@ -146,27 +145,36 @@ public class ViewMap implements Pages {
             case 'x':
                 action = Actions.EXIT;
                 return PageType.MANAGE_HOUSEHOLD_INFORMATION;
+
+            default:
+                handleInvalid();
         }
 
         return PageType.MAP;
     }
 
+    public void handleInvalid() {
+        message = null;
+    }
+
+    public moveRight() {
+        message = "Moving " + player.name;
+        
+    }
+
     public void handleEat() {
         String type = player.getType();
         if (type.equals("Human") || type.equals("Alien")) {
-            player.hunger += 20;
+            player.hunger = Math.clamp(player.hunger + 20, 0, 50);
             player.mood = "Satisfied";
-            Math.clamp(player.hunger, 0, 50);
 
             message = player.name + " eats.\n" +
                     player.name + " now has a hunger level of " + player.hunger;
 
         } else if (type.equals("Vampire")) {
-            player.thirst -= 20;
-            player.hunger += 20;
+            player.thirst = Math.clamp(player.thirst - 20, 0, 50);
+            player.hunger = Math.clamp(player.hunger + 20, 0, 50);
             player.mood = "Thirsty";
-            Math.clamp(player.thirst, 0, 50);
-            Math.clamp(player.hunger, 0, 50);
             
             message = player.name + " eats and starts to feel thirsty.\n" + 
                     player.name + " now has a hunger level of " + player.hunger;
@@ -177,31 +185,39 @@ public class ViewMap implements Pages {
     public void handleSleep() {
         String type = player.getType();
         if (type.equals("Human")) {
-            player.hunger -= 30;
+            player.hunger = Math.clamp(player.hunger - 30, 0, 50);
             player.mood = "Rested";
 
-            Math.clamp(player.hunger, 0, 50);
 
             message = player.name + " sleeps in a bed to recharge energy.\n";
 
         } else if (type.equals("Vampire")) {
-            player.thirst -= 30;
-            player.hunger -= 30;
+            player.thirst = Math.clamp(player.thirst - 30, 0, 50);
+            player.hunger = Math.clamp(player.hunger - 30, 0, 50);
             player.mood = "Rested";
 
-            Math.clamp(player.thirst, 0, 50);
-            Math.clamp(player.hunger, 0, 50);
             
             message = player.name + " sleeps in a coffin to recharge energy.\n";
 
         } else if (type.equals("Alien")) {
-            player.hunger -= 30;
+            player.hunger = Math.clamp(player.hunger - 30, 0, 50);
             player.mood = "Rested";
 
-            Math.clamp(player.hunger, 0, 50);
             
             message = player.name + " sleeps in a spaceship to recharge energy.\n";
         }
+    }
+
+    public boolean handleDrink() {
+        if (!player.getType().equals("Vampire")) {
+            return false;
+        }
+
+        player.thirst = Math.clamp(player.thirst + 30, 0, 50);
+        player.mood = "Satisfied";
+        message = player.name + " drinks blood and now has a thirst level of " + player.thirst;
+
+        return true;
     }
 
     public void randomizeSimLoc() {
@@ -214,7 +230,7 @@ public class ViewMap implements Pages {
             }
 
             householdDetails.map.set(y, x, householdDetails.getSim(i).name.charAt(0));
-            this.simsPos.add(new Coordinate(y, x));
+            this.householdDetails.getSim(i).pos.set(y, x);
             i++;
         }
     }

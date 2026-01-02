@@ -7,10 +7,13 @@ public abstract class Sims {
     protected int hunger = 50;
     protected int energy = 50;
     protected int thirst;
+    public Coordinate pos;
 
     public Sims(String name, int thirst) {
         this.name = name;
         this.thirst = thirst;
+
+        pos = new Coordinate(-1, -1);
     }
 
     public abstract String getType();

@@ -5,7 +5,7 @@ Tugas praktikum ISTTS 24/25
 OOP mastery measuring tape
 
 things learned NOT about OOP:
-- the use of wrapper classes
+- the use of wrapper classes (faking pass by reef💀)
 - overcomplicating simple problems
 - NOT using a makefile (notice it is "NOT using" instead of "making" since I'm still confused even now haha...)
 - how to compile into the right folder

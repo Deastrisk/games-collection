@@ -9,7 +9,7 @@ public class HouseholdDetails {
 
     public HouseholdDetails() {
         this.simsList = new ArrayList<>();
-        this.map = new SimsMap();
+        this.map = new SimsMap(simsList);
     }
 
     public int getCount() {
