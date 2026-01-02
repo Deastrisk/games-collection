@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class ViewMap implements Pages {
     private final HouseholdData householdData;
     private final Wrapper<String> householdName;
@@ -6,7 +9,8 @@ public class ViewMap implements Pages {
     private Sims player;
     private Sims other;
 
-    private Actions action = Actions.INVALID;
+    private List<Coordinate> simsPos;
+    private Actions action;
 
     private String message = null;
     private HouseholdDetails householdDetails;
@@ -19,6 +23,7 @@ public class ViewMap implements Pages {
         MOVE_RIGHT, // D
 
         EAT,        // E
+        DRINK,      // M
         SLEEP,      // L
         LEARN,      // I
         EXIT,       // X
@@ -30,6 +35,8 @@ public class ViewMap implements Pages {
         this.householdData = householdData;
         this.householdName = householdName;
         this.simName = selectedSimName;
+
+        this.simsPos = new ArrayList<>();
     }
 
     @Override
@@ -37,6 +44,8 @@ public class ViewMap implements Pages {
         householdDetails = householdData.details.get(householdName.get());
         player = householdDetails.getSim(simName.get());
         map = householdDetails.map;
+
+        randomizeSimLoc();
 
         while (true) {
             // 13
@@ -113,6 +122,16 @@ public class ViewMap implements Pages {
                 action = Actions.EAT;
                 return PageType.MAP;
 
+            case 'M':
+            case 'm':
+                if (!player.getType().equals("Vampire")) {
+                    break;
+                }
+
+                // handleDrink();
+                action = Actions.DRINK;
+                return PageType.MAP;
+
             case 'I':
             case 'i':
                 action = Actions.LEARN;
@@ -127,9 +146,9 @@ public class ViewMap implements Pages {
             case 'x':
                 action = Actions.EXIT;
                 return PageType.MANAGE_HOUSEHOLD_INFORMATION;
-
-            default: return PageType.MAP;
         }
+
+        return PageType.MAP;
     }
 
     public void handleEat() {
@@ -137,7 +156,7 @@ public class ViewMap implements Pages {
         if (type.equals("Human") || type.equals("Alien")) {
             player.hunger += 20;
             player.mood = "Satisfied";
-            if (player.hunger > 50) player.hunger = 50;
+            Math.clamp(player.hunger, 0, 50);
 
             message = player.name + " eats.\n" +
                     player.name + " now has a hunger level of " + player.hunger;
@@ -145,8 +164,9 @@ public class ViewMap implements Pages {
         } else if (type.equals("Vampire")) {
             player.thirst -= 20;
             player.hunger += 20;
-            if (player.thirst < 0 && type.equals("Vampire")) player.thirst = 0;
-            if (player.hunger > 50) player.hunger = 50;
+            player.mood = "Thirsty";
+            Math.clamp(player.thirst, 0, 50);
+            Math.clamp(player.hunger, 0, 50);
             
             message = player.name + " eats and starts to feel thirsty.\n" + 
                     player.name + " now has a hunger level of " + player.hunger;
@@ -154,22 +174,34 @@ public class ViewMap implements Pages {
 
     }
 
-    // males buat class baru bilek
-    public void distantInteraction() {
-        System.out.println("Chooose a Sim to interact with:");
-        if (householdDetails.getCount() == 0) {
-            System.out.println("No other Sims to interact with.");
-            // System.out.print(">> ");
+    public void handleSleep() {
+        String type = player.getType();
+        if (type.equals("Human")) {
+            player.hunger -= 30;
+            player.mood = "Rested";
 
-            App.scanner.nextLine();
-            return;
+            Math.clamp(player.hunger, 0, 50);
+
+            message = player.name + " sleeps in a bed to recharge energy.\n";
+
+        } else if (type.equals("Vampire")) {
+            player.thirst -= 30;
+            player.hunger -= 30;
+            player.mood = "Rested";
+
+            Math.clamp(player.thirst, 0, 50);
+            Math.clamp(player.hunger, 0, 50);
+            
+            message = player.name + " sleeps in a coffin to recharge energy.\n";
+
+        } else if (type.equals("Alien")) {
+            player.hunger -= 30;
+            player.mood = "Rested";
+
+            Math.clamp(player.hunger, 0, 50);
+            
+            message = player.name + " sleeps in a spaceship to recharge energy.\n";
         }
-
-        for (int i = 0; i < householdDetails.getCount(); i++) {
-            System.out.println((i + 1) + ". " + householdDetails.getSim(i).name);
-        }
-
-        int inp = chooseSim();
     }
 
     public void randomizeSimLoc() {
@@ -182,34 +214,16 @@ public class ViewMap implements Pages {
             }
 
             householdDetails.map.set(y, x, householdDetails.getSim(i).name.charAt(0));
+            this.simsPos.add(new Coordinate(y, x));
             i++;
         }
     }
 
-    public int chooseSim() {
-        while (true) { 
-            System.out.print(">> ");
-            String inpStr = App.scanner.nextLine();
-
-            try {
-                int inp = Integer.parseInt(inpStr);
-                if (inp < 0 || inp > householdDetails.getCount()) {
-                    System.out.println("Must select one of the Sims.");
-                    continue;
-                }
-                return inp;
-            } catch (NumberFormatException e) {
-                System.out.println("Input must be a number.");
-            }
-        }
-    }
+    // public void detectInteraction() {
+    //     if ()
+    // }
 
     public void handleInteraction() {
-        if (other == null) {
-            distantInteraction();
-            return;
-        }
-
         if (player.getType().equals("Human") || player.getType().equals("Vampire")) {
             message = player.name + " interacts with " + other.name + " and feels Happy.";
             player.mood = "Happy";
