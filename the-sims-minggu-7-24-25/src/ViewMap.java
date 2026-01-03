@@ -42,27 +42,10 @@ public class ViewMap implements Pages {
 
         randomizeSimLoc();
 
+        // map loop
         while (true) {
-            // 13
-            System.out.print("+");
-            for (int i = 0; i < map.width(); i++) {
-                System.out.print("-");
-            }
-            System.out.println("+");
-
-            for (int i = 0; i < map.height(); i++) {
-                System.out.print("|");
-                for (int j = 0; j < map.width(); j++) {
-                    System.out.print(map.get(i, j));
-                }
-                System.out.println("|");
-            }
-
-            System.out.print("+");
-            for (int i = 0; i < map.width(); i++) {
-                System.out.print("-");
-            }
-            System.out.println("+");
+            map.populateMap();
+            map.printMap();
 
             if (message != null)
                 System.out.println(message);
@@ -78,7 +61,7 @@ public class ViewMap implements Pages {
                             [X] - Exit view map
                              """);
 
-            char inp = getInput();
+            Character inp = getInput();
             if (handleInput(inp) == PageType.MANAGE_HOUSEHOLD_INFORMATION) {
                 householdDetails.map.clear();
                 return PageType.MANAGE_HOUSEHOLD_INFORMATION;
@@ -89,28 +72,36 @@ public class ViewMap implements Pages {
     // handles chars
     @Override
     public PageType handleInput(Object inp) {
+        if (inp == null) {
+            return PageType.MAP;
+        }
+
         switch ((char) inp) {
             case 'W':
             case 'w':
                 message = "Moving Zuzu...";
+                moveUp();
                 action = Actions.MOVE_UP;
                 return PageType.MAP;
                 
             case 'S':
             case 's':
                 message = "Moving Zuzu...";
+                moveDown();
                 action = Actions.MOVE_DOWN;
                 return PageType.MAP;
 
             case 'A':
             case 'a':
                 message = "Moving Zuzu...";
+                moveLeft();
                 action = Actions.MOVE_LEFT;
                 return PageType.MAP;
 
             case 'D':
             case 'd':
                 message = "Moving Zuzu...";
+                moveRight();
                 action = Actions.MOVE_RIGHT;
                 return PageType.MAP;
 
@@ -122,10 +113,6 @@ public class ViewMap implements Pages {
 
             case 'M':
             case 'm':
-                if (!player.getType().equals("Vampire")) {
-                    break;
-                }
-
                 handleDrink();
                 action = Actions.DRINK;
                 return PageType.MAP;
@@ -157,9 +144,24 @@ public class ViewMap implements Pages {
         message = null;
     }
 
-    public moveRight() {
+    public void moveRight() {
         message = "Moving " + player.name;
-        
+        player.pos.move(1, 0);
+    }
+
+    public void moveLeft() {
+        message = "Moving " + player.name;
+        player.pos.move(-1, 0);
+    }
+    
+    public void moveUp() {
+        message = "Moving " + player.name;
+        player.pos.move(0, -1);
+    }
+
+    public void moveDown() {
+        message = "Moving " + player.name;
+        player.pos.move(0, 1);
     }
 
     public void handleEat() {

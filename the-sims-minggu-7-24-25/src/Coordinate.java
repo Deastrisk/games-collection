@@ -12,6 +12,18 @@ public class Coordinate {
         this.y = y;
     }
 
+    public boolean move(int xDis, int yDis) {
+        int newX = this.x + xDis;
+        int newY = this.y + yDis;
+
+        if (newX < 0 || newY < 0) {
+            return false;
+        }
+        
+        this.set(newX, newY);
+        return true;
+    }
+
     public int x() {
         return this.x;
     }
