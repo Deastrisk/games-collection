@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public abstract class Sims {
     protected String name;
@@ -18,6 +19,10 @@ public abstract class Sims {
 
     public abstract String getType();
 
-    protected List<Skill> skills = new ArrayList<>();
+    protected Map<String, Skill> skills = Map.of(
+        "Cooking", new Cooking(),
+        "Logic", new Logic(),
+        "Charisma", new Charisma()
+    );
     protected List<Friend> friends = new ArrayList<>();
 }

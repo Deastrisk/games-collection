@@ -1,3 +1,4 @@
+import java.util.Map;
 
 public class SimDetailsInformation extends SimDetailsSelect {
     // private HouseholdData householdData;
@@ -32,9 +33,14 @@ public class SimDetailsInformation extends SimDetailsSelect {
         System.out.println("Skills:");
         if (this.sim.skills == null || this.sim.skills.isEmpty()) {
             System.out.println("No skills yet.");
+
         } else {
-            for (Skill skill : this.sim.skills) {
-                System.out.println(" - " + skill.name + " Skill (" + skill.level + "/10)");
+            for (Map.Entry<String, Skill> entry : this.sim.skills.entrySet()) {
+                if (entry.getValue().getLevel() <= 0) {
+                    continue;
+                }
+
+                System.out.println(" - " + entry.getKey() + " Skill (" + entry.getValue().getLevel() + "/10)");
             }
         }
         
