@@ -12,15 +12,15 @@ public class Coordinate {
         this.y = y;
     }
 
-    public boolean move(int xDis, int yDis) {
+    public boolean move(int yDis, int xDis, int width, int height) {
         int newX = this.x + xDis;
         int newY = this.y + yDis;
 
-        if (newX < 0 || newY < 0) {
+        if (newX < 0 || newY < 0 || newX >= width || newY >= height) {
             return false;
         }
         
-        this.set(newX, newY);
+        this.set(newY, newX);
         return true;
     }
 

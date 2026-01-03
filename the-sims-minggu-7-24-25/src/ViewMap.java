@@ -41,10 +41,11 @@ public class ViewMap implements Pages {
         map = householdDetails.map;
 
         randomizeSimLoc();
+        // this.householdDetails.getSim(0).pos.set(0, 0);
 
         // map loop
         while (true) {
-            map.populateMap();
+            map.populateSimsMap();
             map.printMap();
 
             if (message != null)
@@ -63,7 +64,7 @@ public class ViewMap implements Pages {
 
             Character inp = getInput();
             if (handleInput(inp) == PageType.MANAGE_HOUSEHOLD_INFORMATION) {
-                householdDetails.map.clear();
+                householdDetails.map.clearSimsMap();
                 return PageType.MANAGE_HOUSEHOLD_INFORMATION;
             };
         }   
@@ -80,28 +81,28 @@ public class ViewMap implements Pages {
             case 'W':
             case 'w':
                 message = "Moving Zuzu...";
-                moveUp();
+                movePlayer(-1, 0);
                 action = Actions.MOVE_UP;
                 return PageType.MAP;
                 
             case 'S':
             case 's':
                 message = "Moving Zuzu...";
-                moveDown();
+                movePlayer(1, 0);
                 action = Actions.MOVE_DOWN;
                 return PageType.MAP;
 
             case 'A':
             case 'a':
                 message = "Moving Zuzu...";
-                moveLeft();
+                movePlayer(0, -1);
                 action = Actions.MOVE_LEFT;
                 return PageType.MAP;
 
             case 'D':
             case 'd':
                 message = "Moving Zuzu...";
-                moveRight();
+                movePlayer(0, 1);
                 action = Actions.MOVE_RIGHT;
                 return PageType.MAP;
 
@@ -119,6 +120,7 @@ public class ViewMap implements Pages {
 
             case 'I':
             case 'i':
+                handleLearn();
                 action = Actions.LEARN;
                 return PageType.MAP;
             
@@ -140,28 +142,18 @@ public class ViewMap implements Pages {
         return PageType.MAP;
     }
 
+    public void handleLearn() {
+        message = ""
+    }
+
     public void handleInvalid() {
         message = null;
     }
 
-    public void moveRight() {
-        message = "Moving " + player.name;
-        player.pos.move(1, 0);
-    }
-
-    public void moveLeft() {
-        message = "Moving " + player.name;
-        player.pos.move(-1, 0);
-    }
-    
-    public void moveUp() {
-        message = "Moving " + player.name;
-        player.pos.move(0, -1);
-    }
-
-    public void moveDown() {
-        message = "Moving " + player.name;
-        player.pos.move(0, 1);
+    public void movePlayer(int y, int x) {
+        message = "Moving " + player.name + "...";
+        // System.out.println(player.pos.x() + ", " + player.pos.y());
+        player.pos.move(y, x, map.width(), map.height());
     }
 
     public void handleEat() {
@@ -191,7 +183,7 @@ public class ViewMap implements Pages {
             player.mood = "Rested";
 
 
-            message = player.name + " sleeps in a bed to recharge energy.\n";
+            message = player.name + " sleeps in a bed to recharge energy.";
 
         } else if (type.equals("Vampire")) {
             player.thirst = Math.clamp(player.thirst - 30, 0, 50);
@@ -199,14 +191,14 @@ public class ViewMap implements Pages {
             player.mood = "Rested";
 
             
-            message = player.name + " sleeps in a coffin to recharge energy.\n";
+            message = player.name + " sleeps in a coffin to recharge energy.";
 
         } else if (type.equals("Alien")) {
             player.hunger = Math.clamp(player.hunger - 30, 0, 50);
             player.mood = "Rested";
 
             
-            message = player.name + " sleeps in a spaceship to recharge energy.\n";
+            message = player.name + " sleeps in a spaceship to recharge energy.";
         }
     }
 
@@ -231,7 +223,7 @@ public class ViewMap implements Pages {
                 continue;
             }
 
-            householdDetails.map.set(y, x, householdDetails.getSim(i).name.charAt(0));
+            // householdDetails.map.set(y, x, householdDetails.getSim(i).name.charAt(0));
             this.householdDetails.getSim(i).pos.set(y, x);
             i++;
         }
