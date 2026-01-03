@@ -1,9 +1,11 @@
 public class Learn implements Pages {
     Sims sim;
-    public Learn(Sims sim) {
+    Wrapper<String> message;
+    public Learn(Sims sim, Wrapper<String> message) {
         this.sim = sim;
+        this.message = message;
     }
-        
+
     @Override
     public PageType IODisplay() {
         System.out.println("""
@@ -36,17 +38,19 @@ public class Learn implements Pages {
     }
 
     @Override
-    public PageType handleInput(Integer inp) {
-        switch (inp) {
+    public PageType handleInput(Object inp) {
+        switch ((int)inp) {
             case 1: 
-                sim.enhanceCooking();
+                sim.skills.get("Cooking").enhanceSkill(sim, message);
                 return PageType.MAP;
             case 2: 
-                sim.enhanceLogic();
+                sim.skills.get("Logic").enhanceSkill(sim, message);
                 return PageType.MAP;
             case 3: 
-                sim.enhanceCharisma();
+                sim.skills.get("Charisma").enhanceSkill(sim, message);
                 return PageType.MAP;
         }
+
+        return PageType.MAP;
     }
 }

@@ -1,45 +1,13 @@
-public class Skill {
-    public String name;
-    public int level;
+public abstract class Skill {
+    private int level;
 
-    public void effects(Sims sim, String skill, String mood) {
-        String simType = sim.getType();
-        if (simType.equals("Human")) {
-            if (skill.equals("Cooking")) {
-                
-            }
-            else if (skill.equals("Logic")) {
-                
-            }
-            else if (skill.equals("Charisma")) {
-    
-            }
-        }
-        else if (simType.equals("Vampire")) {
-            if (skill.equals("Cooking")) {
-
-            }
-            else if (skill.equals("Logic")) {
-                
-            }
-            else if (skill.equals("Charisma")) {
-
-            }
-        }
-        else if (simType.equals("Alien")) {
-            if (skill.equals("Cooking")) {
-    
-            }
-            else if (skill.equals("Logic")) {
-                
-            }
-            else if (skill.equals("Charisma")) {
-    
-            }
-        }
+    public int getLevel() {
+        return level;
     }
 
-    public void enhanceCooking() {
-        
+    public void setLevel(int newLevel) {
+        level = newLevel;
     }
+
+    public abstract void enhanceSkill(Sims sim, Wrapper<String> message);
 }
