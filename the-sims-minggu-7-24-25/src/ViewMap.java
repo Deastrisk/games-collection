@@ -64,7 +64,6 @@ public class ViewMap implements Pages {
 
             Character inp = getInput();
             if (handleInput(inp) == PageType.MANAGE_HOUSEHOLD_INFORMATION) {
-                householdDetails.map.clearSimsMap();
                 return PageType.MANAGE_HOUSEHOLD_INFORMATION;
             };
         }   
@@ -141,9 +140,17 @@ public class ViewMap implements Pages {
 
         return PageType.MAP;
     }
-
+    
     public void handleLearn() {
-        message = ""
+        enum Skills {
+
+        }
+
+        // this is probably EXTREMELY badly designed but
+        // honestly I really just want to use anonymous 
+        // classes too much T_T
+
+        
     }
 
     public void handleInvalid() {
