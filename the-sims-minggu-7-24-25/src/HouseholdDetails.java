@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -7,6 +9,7 @@ public class HouseholdDetails {
     private long latestId = 0;
     public final SimsMap map;
     public boolean previouslyOpened = false;
+    public List<Friendship> friendships = new ArrayList<>();
     
     public HouseholdDetails() {
         this.map = new SimsMap(sims);

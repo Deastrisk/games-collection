@@ -39,5 +39,5 @@ public abstract class Sims {
         this.friendIds.add(id);
     }
 
-    // public long getId() {return this.id;}
+    public long getId() {return this.id;}
 }
