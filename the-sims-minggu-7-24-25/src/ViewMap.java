@@ -9,7 +9,7 @@ public class ViewMap implements Pages {
 
     private Actions action;
 
-    private String message = null;
+    private Wrapper<String> message = null;
     private HouseholdDetails householdDetails;
     private SimsMap map;
 
@@ -28,7 +28,13 @@ public class ViewMap implements Pages {
         INVALID     // pressed a key which doesn't exists
     }
 
-    public ViewMap(HouseholdData householdData, Wrapper<String> householdName, Wrapper<String> selectedSimName) {
+    public ViewMap(
+        HouseholdData householdData, Wrapper<String> householdName, 
+        Wrapper<String> selectedSimName, 
+        Wrapper<String> message
+    ) {
+        message.set(null);
+        this.message = message;
         this.householdData = householdData;
         this.householdName = householdName;
         this.simName = selectedSimName;
@@ -79,28 +85,28 @@ public class ViewMap implements Pages {
         switch ((char) inp) {
             case 'W':
             case 'w':
-                message = "Moving Zuzu...";
+                message.set("Moving Zuzu...");
                 movePlayer(-1, 0);
                 action = Actions.MOVE_UP;
                 return PageType.MAP;
                 
             case 'S':
             case 's':
-                message = "Moving Zuzu...";
+                message.set("Moving Zuzu...");
                 movePlayer(1, 0);
                 action = Actions.MOVE_DOWN;
                 return PageType.MAP;
 
             case 'A':
             case 'a':
-                message = "Moving Zuzu...";
+                message.set("Moving Zuzu...");
                 movePlayer(0, -1);
                 action = Actions.MOVE_LEFT;
                 return PageType.MAP;
 
             case 'D':
             case 'd':
-                message = "Moving Zuzu...";
+                message.set("Moving Zuzu...");
                 movePlayer(0, 1);
                 action = Actions.MOVE_RIGHT;
                 return PageType.MAP;
@@ -142,23 +148,16 @@ public class ViewMap implements Pages {
     }
     
     public void handleLearn() {
-        enum Skills {
-
-        }
-
-        // this is probably EXTREMELY badly designed but
-        // honestly I really just want to use anonymous 
-        // classes too much T_T
-
+        
         
     }
 
     public void handleInvalid() {
-        message = null;
+        message.set(null);
     }
 
     public void movePlayer(int y, int x) {
-        message = "Moving " + player.name + "...";
+        message.set("Moving " + player.name + "...");
         // System.out.println(player.pos.x() + ", " + player.pos.y());
         player.pos.move(y, x, map.width(), map.height());
     }
@@ -169,16 +168,16 @@ public class ViewMap implements Pages {
             player.hunger = Math.clamp(player.hunger + 20, 0, 50);
             player.mood = "Satisfied";
 
-            message = player.name + " eats.\n" +
-                    player.name + " now has a hunger level of " + player.hunger;
+            message.set(player.name + " eats.\n" +
+                    player.name + " now has a hunger level of " + player.hunger);
 
         } else if (type.equals("Vampire")) {
             player.thirst = Math.clamp(player.thirst - 20, 0, 50);
             player.hunger = Math.clamp(player.hunger + 20, 0, 50);
             player.mood = "Thirsty";
             
-            message = player.name + " eats and starts to feel thirsty.\n" + 
-                    player.name + " now has a hunger level of " + player.hunger;
+            message.set(player.name + " eats and starts to feel thirsty.\n" + 
+                    player.name + " now has a hunger level of " + player.hunger);
         }
 
     }
@@ -190,7 +189,7 @@ public class ViewMap implements Pages {
             player.mood = "Rested";
 
 
-            message = player.name + " sleeps in a bed to recharge energy.";
+            message.set(player.name + " sleeps in a bed to recharge energy.");
 
         } else if (type.equals("Vampire")) {
             player.thirst = Math.clamp(player.thirst - 30, 0, 50);
@@ -198,14 +197,14 @@ public class ViewMap implements Pages {
             player.mood = "Rested";
 
             
-            message = player.name + " sleeps in a coffin to recharge energy.";
+            message.set(player.name + " sleeps in a coffin to recharge energy.");
 
         } else if (type.equals("Alien")) {
             player.hunger = Math.clamp(player.hunger - 30, 0, 50);
             player.mood = "Rested";
 
             
-            message = player.name + " sleeps in a spaceship to recharge energy.";
+            message.set(player.name + " sleeps in a spaceship to recharge energy.");
         }
     }
 
@@ -216,7 +215,7 @@ public class ViewMap implements Pages {
 
         player.thirst = Math.clamp(player.thirst + 30, 0, 50);
         player.mood = "Satisfied";
-        message = player.name + " drinks blood and now has a thirst level of " + player.thirst;
+        message.set(player.name + " drinks blood and now has a thirst level of " + player.thirst);
 
         return true;
     }
@@ -242,13 +241,13 @@ public class ViewMap implements Pages {
 
     public void handleInteraction() {
         if (player.getType().equals("Human") || player.getType().equals("Vampire")) {
-            message = player.name + " interacts with " + other.name + " and feels Happy.";
+            message.set(player.name + " interacts with " + other.name + " and feels Happy.");
             player.mood = "Happy";
             player.energy -= 20;
         }
 
         else if (player.getType().equals("Alien")) {
-            message = player.name + " interacts with " + other.name + " and feels Curious.\n" + player.name + " is ";
+            message.set(player.name + " interacts with " + other.name + " and feels Curious.\n" + player.name + " is ");
             
             String toAppend = "";
             if (other.getType().equals("Human")) {
@@ -269,7 +268,7 @@ public class ViewMap implements Pages {
                 toAppend = "happy to see another alien.";
             }
 
-            message += toAppend;
+            message.set(message.get() + toAppend);
         }
     }
 

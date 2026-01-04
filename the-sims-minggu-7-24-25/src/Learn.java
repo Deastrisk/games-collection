@@ -1,8 +1,8 @@
 public class Learn implements Pages {
     Sims sim;
     Wrapper<String> message;
-    public Learn(Sims sim, Wrapper<String> message) {
-        this.sim = sim;
+    public Learn(HouseholdData householdData, String householdName, String simName, Wrapper<String> message) {
+        this.sim = householdData.details.get(householdName).getSim(simName);
         this.message = message;
     }
 
