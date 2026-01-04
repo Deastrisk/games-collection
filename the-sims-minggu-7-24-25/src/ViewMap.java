@@ -128,11 +128,6 @@ public class ViewMap implements Pages {
 
         return PageType.MAP;
     }
-    
-    public void handleLearn() {
-        
-        
-    }
 
     public void handleInvalid() {
         message.set(null);
