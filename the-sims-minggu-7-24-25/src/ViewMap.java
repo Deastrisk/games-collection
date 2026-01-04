@@ -138,7 +138,7 @@ public class ViewMap implements Pages {
             player.mood = "Satisfied";
 
             message.set(player.name + " eats.\n" +
-                    player.name + " now has a hunger level of " + player.hunger);
+                        player.name + " now has a hunger level of " + player.hunger);
 
         } else if (type.equals("Vampire")) {
             player.thirst = Math.clamp(player.thirst - 20, 0, 50);
@@ -146,7 +146,7 @@ public class ViewMap implements Pages {
             player.mood = "Thirsty";
             
             message.set(player.name + " eats and starts to feel thirsty.\n" + 
-                    player.name + " now has a hunger level of " + player.hunger);
+                        player.name + " now has a hunger level of " + player.hunger);
         }
 
     }
