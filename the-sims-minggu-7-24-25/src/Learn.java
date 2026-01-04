@@ -1,19 +1,25 @@
 public class Learn implements Pages {
+    private final HouseholdData householdData;
+    private final Wrapper<String> householdName;
+    private final Wrapper<String> simName;
     Sims sim;
     Wrapper<String> message;
-    public Learn(Sims sim, Wrapper<String> message) {
-        this.sim = sim;
+    public Learn(HouseholdData householdData, Wrapper<String> householdName, Wrapper<String> simName, Wrapper<String> message) {
+        this.householdData = householdData;
+        this.householdName = householdName;
+        this.simName = simName;
         this.message = message;
     }
-
+    
     @Override
     public PageType IODisplay() {
+        this.sim = householdData.details.get(householdName.get()).getSim(simName.get());
+
         System.out.println("""
                             Choose a skill to enhance:
                             1. Cooking Skill
                             2. Logic Skill
-                            3. Charisma Skill
-                            """);
+                            3. Charisma Skill""");
 
         int inp = getInput();
         return handleInput(inp);

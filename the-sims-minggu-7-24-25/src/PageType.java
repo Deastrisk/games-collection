@@ -11,5 +11,5 @@ public enum PageType {
     MAP_SELECT,
     MAP,
     FRIENDSHIP,
-    SKILL
+    LEARN,
 }

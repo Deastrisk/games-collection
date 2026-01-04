@@ -6,6 +6,7 @@ public class HouseholdDetails {
     private int count = 0;
     private final List<Sims> simsList;
     public final SimsMap map;
+    public boolean previouslyOpened = false;
 
     public HouseholdDetails() {
         this.simsList = new ArrayList<>();
