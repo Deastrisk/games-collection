@@ -119,6 +119,7 @@ public class ViewMap implements Pages {
         message.set("Moving Zuzu...");
         movePlayer(y, x);
         detectInteraction();
+        handleInteraction();
     }
 
     public void handleInvalid() {
@@ -210,7 +211,7 @@ public class ViewMap implements Pages {
                 continue;
             }
 
-            
+            other = householdDetails.getSim(i);
         }
     }
 
@@ -218,7 +219,7 @@ public class ViewMap implements Pages {
         if (player.getType().equals("Human") || player.getType().equals("Vampire")) {
             message.set(player.name + " interacts with " + other.name + " and feels Happy.");
             player.mood = "Happy";
-            player.energy -= 20;
+            player.energy -= 20 + (player.skills.get("Logic").getLevel() * 1);
         }
 
         else if (player.getType().equals("Alien")) {
@@ -226,19 +227,19 @@ public class ViewMap implements Pages {
             
             String toAppend = "";
             if (other.getType().equals("Human")) {
-                player.energy -= 30;
+                player.energy -= 30 + (player.skills.get("Logic").getLevel() * 1);
                 player.mood = "Curious";
                 toAppend = "curious about human behaviour.";
             }
             
             else if (other.getType().equals("Vampire")) {
-                player.energy -= 20;
+                player.energy -= 20 + (player.skills.get("Logic").getLevel() * 1);
                 player.mood = "Intrigued";
                 toAppend = "intrigued by the vampire's abilities.";
             }
             
             else if (other.getType().equals("Alien")) {
-                player.energy -= 10;
+                player.energy -= 10 + (player.skills.get("Logic").getLevel() * 1);
                 player.mood = "Happy";
                 toAppend = "happy to see another alien.";
             }

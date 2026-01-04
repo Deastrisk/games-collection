@@ -1,6 +1,6 @@
 public class Human extends Sims {
-    public Human(String name) {
-        super(name, 0);
+    public Human(String name, long id) {
+        super(name, id, null);
     }
 
     @Override

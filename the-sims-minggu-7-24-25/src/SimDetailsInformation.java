@@ -47,10 +47,10 @@ public class SimDetailsInformation extends SimDetailsSelect {
         System.out.println("+------------------------+");
 
         System.out.println("Friends:");
-        if (this.sim.friends == null || this.sim.friends.isEmpty()) {
+        if (this.sim.friendIds == null || this.sim.friendIds.isEmpty()) {
             System.out.println("No friends yet.");
         } else {
-            for (Friend friend : this.sim.friends) {
+            for (long friendId : this.sim.friendIds) {
                 System.out.println(" - " + friend.name + " (" + friend.getFriendshipStatus() + ")");
             }
         }
