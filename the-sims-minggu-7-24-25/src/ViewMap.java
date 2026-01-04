@@ -7,26 +7,9 @@ public class ViewMap implements Pages {
     private Sims player;
     private Sims other;
 
-    private Actions action;
-
     private Wrapper<String> message = null;
     private HouseholdDetails householdDetails;
     private SimsMap map;
-
-    private enum Actions {
-        MOVE_UP,    // W
-        MOVE_LEFT,  // A
-        MOVE_DOWN,  // S
-        MOVE_RIGHT, // D
-
-        EAT,        // E
-        DRINK,      // M
-        SLEEP,      // L
-        LEARN,      // I
-        EXIT,       // X
-
-        INVALID     // pressed a key which doesn't exists
-    }
 
     public ViewMap(
         HouseholdData householdData, Wrapper<String> householdName, 
@@ -46,16 +29,19 @@ public class ViewMap implements Pages {
         player = householdDetails.getSim(simName.get());
         map = householdDetails.map;
 
-        randomizeSimLoc();
-        // this.householdDetails.getSim(0).pos.set(0, 0);
+        // randomizes only the first time map is opened
+        if (!householdDetails.previouslyOpened) {
+            randomizeSimLoc();
+            householdDetails.previouslyOpened = true;
+        }
 
         // map loop
         while (true) {
             map.populateSimsMap();
             map.printMap();
 
-            if (message != null)
-                System.out.println(message);
+            if (message.get() != null)
+                System.out.println(message.get());
 
             System.out.print("""
                             [WASD] - Move Sim
@@ -69,9 +55,14 @@ public class ViewMap implements Pages {
                              """);
 
             Character inp = getInput();
-            if (handleInput(inp) == PageType.MANAGE_HOUSEHOLD_INFORMATION) {
+            PageType nextPage = handleInput(inp);
+            if (nextPage == PageType.MANAGE_HOUSEHOLD_INFORMATION) {
                 return PageType.MANAGE_HOUSEHOLD_INFORMATION;
-            };
+            }
+
+            else if (nextPage == PageType.LEARN) {
+                return PageType.LEARN;
+            }
         }   
     }
 
@@ -87,57 +78,48 @@ public class ViewMap implements Pages {
             case 'w':
                 message.set("Moving Zuzu...");
                 movePlayer(-1, 0);
-                action = Actions.MOVE_UP;
                 return PageType.MAP;
                 
             case 'S':
             case 's':
                 message.set("Moving Zuzu...");
                 movePlayer(1, 0);
-                action = Actions.MOVE_DOWN;
                 return PageType.MAP;
 
             case 'A':
             case 'a':
                 message.set("Moving Zuzu...");
                 movePlayer(0, -1);
-                action = Actions.MOVE_LEFT;
                 return PageType.MAP;
 
             case 'D':
             case 'd':
                 message.set("Moving Zuzu...");
                 movePlayer(0, 1);
-                action = Actions.MOVE_RIGHT;
                 return PageType.MAP;
 
             case 'E':
             case 'e':
                 handleEat();
-                action = Actions.EAT;
                 return PageType.MAP;
 
             case 'M':
             case 'm':
                 handleDrink();
-                action = Actions.DRINK;
                 return PageType.MAP;
 
             case 'I':
             case 'i':
                 handleLearn();
-                action = Actions.LEARN;
-                return PageType.MAP;
+                return PageType.LEARN;
             
             case 'L':
             case 'l':
                 handleSleep();
-                action = Actions.SLEEP;
                 return PageType.MAP;
 
             case 'X':
             case 'x':
-                action = Actions.EXIT;
                 return PageType.MANAGE_HOUSEHOLD_INFORMATION;
 
             default:

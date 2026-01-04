@@ -8,7 +8,7 @@ public class App {
     HouseholdData householdData = new HouseholdData();
     Wrapper<String> houseName = new Wrapper<>();
     Wrapper<String> selectedSimName = new Wrapper<>();
-    Wrapper<String> message = new Wrapper<>();
+    Wrapper<String> message = new Wrapper<>(null);
 
     private final Map<PageType, Pages> pages = Map.ofEntries(
         Map.entry(PageType.START, new Start()),
@@ -21,7 +21,7 @@ public class App {
         Map.entry(PageType.SIM_DETAILS_INFORMATION, new SimDetailsInformation(householdData, houseName, selectedSimName)),
         Map.entry(PageType.MAP_SELECT, new ViewMapSelect(householdData, houseName, selectedSimName)),
         Map.entry(PageType.MAP, new ViewMap(householdData, houseName, selectedSimName, message)),
-        Map.entry(PageType.LEARN, new Learn(householdData, houseName.get(), selectedSimName.get(), message))
+        Map.entry(PageType.LEARN, new Learn(householdData, houseName, selectedSimName, message))
     );
 
     public static void main(String[] args) throws Exception {
