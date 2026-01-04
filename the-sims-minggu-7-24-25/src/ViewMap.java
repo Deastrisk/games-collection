@@ -73,53 +73,39 @@ public class ViewMap implements Pages {
             return PageType.MAP;
         }
 
-        switch ((char) inp) {
+        switch (Character.toUpperCase((char) inp)) {
             case 'W':
-            case 'w':
-                message.set("Moving Zuzu...");
-                movePlayer(-1, 0);
+                handleMove(-1, 0);
                 return PageType.MAP;
                 
             case 'S':
-            case 's':
-                message.set("Moving Zuzu...");
-                movePlayer(1, 0);
+                handleMove(1, 0);
                 return PageType.MAP;
 
             case 'A':
-            case 'a':
-                message.set("Moving Zuzu...");
-                movePlayer(0, -1);
+                handleMove(0, -1);
                 return PageType.MAP;
 
             case 'D':
-            case 'd':
-                message.set("Moving Zuzu...");
-                movePlayer(0, 1);
+                handleMove(0, 1);
                 return PageType.MAP;
 
             case 'E':
-            case 'e':
                 handleEat();
                 return PageType.MAP;
 
             case 'M':
-            case 'm':
                 handleDrink();
                 return PageType.MAP;
 
             case 'I':
-            case 'i':
-                handleLearn();
                 return PageType.LEARN;
             
             case 'L':
-            case 'l':
                 handleSleep();
                 return PageType.MAP;
 
             case 'X':
-            case 'x':
                 return PageType.MANAGE_HOUSEHOLD_INFORMATION;
 
             default:
@@ -127,6 +113,12 @@ public class ViewMap implements Pages {
         }
 
         return PageType.MAP;
+    }
+
+    public void handleMove(int y, int x) {
+        message.set("Moving Zuzu...");
+        movePlayer(y, x);
+        detectInteraction();
     }
 
     public void handleInvalid() {
@@ -142,7 +134,7 @@ public class ViewMap implements Pages {
     public void handleEat() {
         String type = player.getType();
         if (type.equals("Human") || type.equals("Alien")) {
-            player.hunger = Math.clamp(player.hunger + 20, 0, 50);
+            player.hunger = Math.clamp(player.hunger + 20 + player.skills.get("Cooking").getLevel() * 2, 0, 50);
             player.mood = "Satisfied";
 
             message.set(player.name + " eats.\n" +
@@ -150,7 +142,7 @@ public class ViewMap implements Pages {
 
         } else if (type.equals("Vampire")) {
             player.thirst = Math.clamp(player.thirst - 20, 0, 50);
-            player.hunger = Math.clamp(player.hunger + 20, 0, 50);
+            player.hunger = Math.clamp(player.hunger + 20 + player.skills.get("Cooking").getLevel() * 2, 0, 50);
             player.mood = "Thirsty";
             
             message.set(player.name + " eats and starts to feel thirsty.\n" + 
@@ -212,9 +204,15 @@ public class ViewMap implements Pages {
         }
     }
 
-    // public void detectInteraction() {
-    //     if ()
-    // }
+    public void detectInteraction() {
+        for (int i = 0; i < householdDetails.getCount(); i++) {
+            if (!player.pos.equals(householdDetails.getSim(i).pos)) {
+                continue;
+            }
+
+            
+        }
+    }
 
     public void handleInteraction() {
         if (player.getType().equals("Human") || player.getType().equals("Vampire")) {
