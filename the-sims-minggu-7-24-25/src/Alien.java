@@ -1,6 +1,6 @@
 public class Alien extends Sims {
-    public Alien(String name) {
-        super(name, null);
+    public Alien(String name, long id) {
+        super(name, id, null);
     }
 
     @Override

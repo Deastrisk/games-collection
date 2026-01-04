@@ -18,7 +18,7 @@ public class Charisma extends Skill {
             sim.mood = "Confident";
             message.set(sim.name + " charms everyone effortlessly and feels confident.");
         }
-        else if (simType.equals("Alien") && sim.friends.size() >= 2) {
+        else if (simType.equals("Alien") && sim.friendIds.size() >= 2) {
             setLevel(getLevel() + 2);
             sim.mood = "Curious";
             message.set(sim.name + " learns something new about human behaviour.");

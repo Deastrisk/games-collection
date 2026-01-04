@@ -10,7 +10,7 @@ public abstract class Sims {
     protected int energy = 50;
     protected int thirst;
     public Coordinate pos;
-    private Set<Long> friendIds = new HashSet<>();
+    public Set<Long> friendIds = new HashSet<>();
 
     public Sims(String name, long id,  Integer thirst) {
         this.name = name;
@@ -31,13 +31,13 @@ public abstract class Sims {
         return friendIds;
     }
 
-    public void addFriend(Sims sim) {
-        this.friendIds.add(sim.id);
-    }
-
-    // public void addFriend(long id) {
-    //     this.friendIds.add(id);
+    // public void addFriend(Sims sim) {
+    //     this.friendIds.add(sim.id);
     // }
+
+    public void addFriend(long id) {
+        this.friendIds.add(id);
+    }
 
     // public long getId() {return this.id;}
 }
