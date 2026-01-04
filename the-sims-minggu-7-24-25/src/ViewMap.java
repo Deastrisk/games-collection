@@ -110,7 +110,6 @@ public class ViewMap implements Pages {
 
             case 'I':
             case 'i':
-                handleLearn();
                 return PageType.LEARN;
             
             case 'L':
