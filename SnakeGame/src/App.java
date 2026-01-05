@@ -1,7 +1,9 @@
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import java.util.Map;
 
 public class App {
+
     public static void main(String[] args) throws Exception {
         JFrame frame = new JFrame();
         frame.setResizable(true);
@@ -9,7 +11,6 @@ public class App {
         frame.setPreferredSize(new Dimension(700, 400));
 
         MenuPanel mainMenu = new MenuPanel();
-        // mainMenu.start();
 
         frame.setVisible(true);
     }
