@@ -15,7 +15,7 @@ public class App {
         Map.entry(PageType.MAIN_MENU, new MainMenu(householdData)),
         Map.entry(PageType.CREATE_SIM_HOUSEHOLD, new CreateSimHousehold(householdData, houseName)),
         Map.entry(PageType.CREATE_SIM_TYPE, new CreateSimType(householdData, houseName)),
-        Map.entry(PageType.MANAGE_HOUSEHOLD_SELECT, new ManageHouseholdSelect(householdData, houseName)),
+        Map.entry(PageType.MANAGE_HOUSEHOLD_SELECT, new ManageHouseholdSelect(houseName)),
         Map.entry(PageType.MANAGE_HOUSEHOLD_INFORMATION, new ManageHouseholdInformation(householdData, houseName)),
         Map.entry(PageType.SIM_DETAILS_SELECT, new SimDetailsSelect(householdData, selectedSimName, houseName)),
         Map.entry(PageType.SIM_DETAILS_INFORMATION, new SimDetailsInformation(householdData, houseName, selectedSimName)),

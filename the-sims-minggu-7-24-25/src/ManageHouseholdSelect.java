@@ -1,10 +1,8 @@
 
 public class ManageHouseholdSelect implements Pages {
-    HouseholdData household;
     Wrapper<String> householdName;
 
-    public ManageHouseholdSelect(HouseholdData household, Wrapper<String> name) {
-        this.household = household;
+    public ManageHouseholdSelect(Wrapper<String> name) {
         this.householdName = name;
     }
 

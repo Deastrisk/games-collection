@@ -8,7 +8,7 @@ public class HouseholdDetails {
     private final Map<Long, Sims> sims = new HashMap<>();
     private long latestId = 0;
     public final SimsMap map;
-    public boolean previouslyOpened = false;
+    public boolean shouldRandomize = false;
     public List<Friendship> friendships = new ArrayList<>();
     
     public HouseholdDetails() {
@@ -56,6 +56,20 @@ public class HouseholdDetails {
                 return sim;
             }
         }
+        return null;
+    }
+
+    public Friendship getFriendship(long idA, long idB) {
+        for (Friendship friendship : friendships) {
+            if ((friendship.idA != idA || friendship.idB != idB) &&
+                (friendship.idA != idB || friendship.idB != idA)
+            ) {
+                continue;
+            }
+
+            return friendship;
+        }
+
         return null;
     }
 }

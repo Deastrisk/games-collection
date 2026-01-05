@@ -15,7 +15,7 @@ public class ViewMapSelect implements Pages {
     public PageType IODisplay() {
         this.householdDetails = householdData.details.get(householdName.get());
 
-        System.out.println("Select a Sim to View Details:");
+        System.out.println("Select a Sim to View Map:");
         if (householdDetails.getCount() == 0) {
             System.out.println("No Sims available in this Household.");
             System.out.print(">> ");

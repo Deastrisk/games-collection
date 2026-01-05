@@ -24,6 +24,9 @@ public class CreateSimType extends CreateSimHousehold {
         System.out.println(name + " feels fine.");
 
         PageType retval = handleInput(inp);
+
+        // activates randomizer on ViewMap
+        household.details.get(householdName.get()).shouldRandomize = true;
         return retval;
     }
 

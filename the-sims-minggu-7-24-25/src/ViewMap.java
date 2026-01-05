@@ -30,9 +30,9 @@ public class ViewMap implements Pages {
         map = householdDetails.map;
 
         // randomizes only the first time map is opened
-        if (!householdDetails.previouslyOpened) {
+        if (householdDetails.shouldRandomize) {
             randomizeSimLoc();
-            householdDetails.previouslyOpened = true;
+            householdDetails.shouldRandomize = false;
         }
 
         // map loop
@@ -118,8 +118,9 @@ public class ViewMap implements Pages {
     public void handleMove(int y, int x) {
         message.set("Moving Zuzu...");
         movePlayer(y, x);
-        detectInteraction();
-        handleInteraction();
+        if (detectInteraction()) {
+            handleInteraction();
+        }
     }
 
     public void handleInvalid() {
@@ -157,22 +158,22 @@ public class ViewMap implements Pages {
         if (type.equals("Human")) {
             player.hunger = Math.clamp(player.hunger - 30, 0, 50);
             player.mood = "Rested";
-
+            player.energy = 50;
 
             message.set(player.name + " sleeps in a bed to recharge energy.");
 
         } else if (type.equals("Vampire")) {
             player.thirst = Math.clamp(player.thirst - 30, 0, 50);
             player.hunger = Math.clamp(player.hunger - 30, 0, 50);
+            player.energy = 50;
             player.mood = "Rested";
-
             
             message.set(player.name + " sleeps in a coffin to recharge energy.");
 
         } else if (type.equals("Alien")) {
             player.hunger = Math.clamp(player.hunger - 30, 0, 50);
             player.mood = "Rested";
-
+            player.energy = 50;
             
             message.set(player.name + " sleeps in a spaceship to recharge energy.");
         }
@@ -205,21 +206,31 @@ public class ViewMap implements Pages {
         }
     }
 
-    public void detectInteraction() {
+    public boolean detectInteraction() {
         for (int i = 0; i < householdDetails.getCount(); i++) {
+            if (householdDetails.getSim(i).equals(player)) {
+                continue;
+            }
+
             if (!player.pos.equals(householdDetails.getSim(i).pos)) {
                 continue;
             }
 
             other = householdDetails.getSim(i);
+            return true;
         }
+
+        return false;
     }
 
     public void handleInteraction() {
         if (player.getType().equals("Human") || player.getType().equals("Vampire")) {
             message.set(player.name + " interacts with " + other.name + " and feels Happy.");
             player.mood = "Happy";
-            player.energy -= 20 + (player.skills.get("Logic").getLevel() * 1);
+            player.energy = Math.clamp(
+                player.energy - 20 + (player.skills.get("Logic").getLevel() * 1), 
+                0, 
+                50);
         }
 
         else if (player.getType().equals("Alien")) {
@@ -227,24 +238,48 @@ public class ViewMap implements Pages {
             
             String toAppend = "";
             if (other.getType().equals("Human")) {
-                player.energy -= 30 + (player.skills.get("Logic").getLevel() * 1);
+                player.energy = Math.clamp(
+                    player.energy - 30 + (player.skills.get("Logic").getLevel() * 1), 
+                    0, 
+                    50);
                 player.mood = "Curious";
                 toAppend = "curious about human behaviour.";
             }
             
             else if (other.getType().equals("Vampire")) {
-                player.energy -= 20 + (player.skills.get("Logic").getLevel() * 1);
+                player.energy = Math.clamp(
+                    player.energy - 20 + (player.skills.get("Logic").getLevel() * 1), 
+                    0, 
+                    50);
                 player.mood = "Intrigued";
                 toAppend = "intrigued by the vampire's abilities.";
             }
             
             else if (other.getType().equals("Alien")) {
-                player.energy -= 10 + (player.skills.get("Logic").getLevel() * 1);
+                player.energy = Math.clamp(
+                    player.energy - 10 + (player.skills.get("Logic").getLevel() * 1), 
+                    0, 
+                    50);
                 player.mood = "Happy";
                 toAppend = "happy to see another alien.";
             }
 
             message.set(message.get() + toAppend);
+        }
+
+        // adding and friendship points
+        {
+            long playerId = player.getId();
+            long otherId = other.getId();
+
+            Friendship friendship = householdDetails.getFriendship(playerId, otherId);
+            if (friendship == null) {
+                Friendship newFriendship = new Friendship(householdDetails);
+                newFriendship.addFriend(playerId, otherId);
+            } else {
+                int amount = 10 + player.skills.get("Charisma").getLevel() * 2;
+                friendship.addFriendshipPoint(playerId, otherId, amount);
+            }
         }
     }
 

@@ -9,8 +9,15 @@ public abstract class Sims {
     protected int hunger = 50;
     protected int energy = 50;
     protected int thirst;
+
     public Coordinate pos;
+
     public Set<Long> friendIds = new HashSet<>();
+    protected Map<String, Skill> skills = Map.of(
+        "Cooking", new Cooking(),
+        "Logic", new Logic(),
+        "Charisma", new Charisma()
+    );
 
     public Sims(String name, long id,  Integer thirst) {
         this.name = name;
@@ -21,11 +28,6 @@ public abstract class Sims {
 
     public abstract String getType();
 
-    protected Map<String, Skill> skills = Map.of(
-        "Cooking", new Cooking(),
-        "Logic", new Logic(),
-        "Charisma", new Charisma()
-    );
 
     public Set<Long> getFriendIds() {
         return friendIds;
