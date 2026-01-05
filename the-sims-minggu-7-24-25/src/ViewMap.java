@@ -35,35 +35,38 @@ public class ViewMap implements Pages {
             householdDetails.shouldRandomize = false;
         }
 
-        // map loop
-        while (true) {
-            map.populateSimsMap();
-            map.printMap();
+        // fills map with sims
+        map.populateSimsMap();
+        map.printMap();
 
-            if (message.get() != null)
-                System.out.println(message.get());
+        if (message.get() != null) {
+            System.out.println(message.get());
 
-            System.out.print("""
-                            [WASD] - Move Sim
-                            [E] - Eat
-                             """ + 
-                             (player.getType().equals("Vampire") ? "[M] - Drink\n" : "") +
-                             """
-                            [L] - Sleep
-                            [I] - Learn new skill
-                            [X] - Exit view map
-                             """);
+            // resets message
+            message.set(null);
+        }
 
-            Character inp = getInput();
-            PageType nextPage = handleInput(inp);
-            if (nextPage == PageType.MANAGE_HOUSEHOLD_INFORMATION) {
-                return PageType.MANAGE_HOUSEHOLD_INFORMATION;
-            }
+        System.out.print("""
+                        [WASD] - Move Sim
+                        [E] - Eat
+                            """ + 
+                            (player.getType().equals("Vampire") ? "[M] - Drink\n" : "") +
+                            """
+                        [L] - Sleep
+                        [I] - Learn new skill
+                        [X] - Exit view map
+                            """);
 
-            else if (nextPage == PageType.LEARN) {
-                return PageType.LEARN;
-            }
-        }   
+        Character inp = getInput();
+        PageType nextPage = handleInput(inp);
+        if (nextPage == PageType.MANAGE_HOUSEHOLD_INFORMATION) {
+            return PageType.MANAGE_HOUSEHOLD_INFORMATION;
+        }
+
+        else if (nextPage == PageType.LEARN) {
+            return PageType.LEARN;
+        }
+        return PageType.MAP;
     }
 
     // handles chars
