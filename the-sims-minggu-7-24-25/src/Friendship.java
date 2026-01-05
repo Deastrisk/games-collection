@@ -12,7 +12,7 @@ public class Friendship {
         if (simAId == simBId) {
             throw new IllegalArgumentException("Cannot befriend yourself.");
         }
-        
+
         Sims a = householdDetails.getSim(simAId);
         Sims b = householdDetails.getSim(simBId);
 
@@ -26,12 +26,12 @@ public class Friendship {
 
     public void addFriendshipPoint(long idA, long idB, int amount) {
         if (this.idA == idA && this.idB == idB) {
-            friendshipPoints += amount;
+            friendshipPoints = Math.clamp(friendshipPoints + amount, 0, 100);
         }
     }
 
     public String getFriendshipStatus() {
-        if (friendshipPoints == 100) 
+        if (friendshipPoints >= 100) 
             return "Best Friend";
         else if (friendshipPoints >= 75) 
             return "Good Friend";
