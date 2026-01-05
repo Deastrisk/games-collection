@@ -24,6 +24,9 @@ public class CreateSimType extends CreateSimHousehold {
         System.out.println(name + " feels fine.");
 
         PageType retval = handleInput(inp);
+
+        // activates randomizer on ViewMap
+        household.details.get(householdName.get()).shouldRandomize = true;
         return retval;
     }
 
@@ -38,15 +41,16 @@ public class CreateSimType extends CreateSimHousehold {
 
     @Override
     public PageType handleInput(Object input) {
+        HouseholdDetails householdDetails = household.details.get(householdName.get());
         switch ((int) input) {
             case 1: 
-                household.details.get(householdName.get()).addSims(new Human(name));
+                householdDetails.createHuman(name);
                 return PageType.MAIN_MENU;
             case 2: 
-                household.details.get(householdName.get()).addSims(new Vampire(name));
+                householdDetails.createVampire(name);
                 return PageType.MAIN_MENU;
             case 3: 
-                household.details.get(householdName.get()).addSims(new Alien(name));
+                householdDetails.createHuman(name);
                 return PageType.MAIN_MENU;
             default: return PageType.MAIN_MENU;
         }

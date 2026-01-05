@@ -1,5 +1,5 @@
 import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
 
 public class SimsMap {
     private final char[] map;
@@ -8,11 +8,11 @@ public class SimsMap {
     // well it was bcs i heard somewhere that a 1d array is better than a 2d one
     // but thinking again that was kind of stupid...
     private final char[] simsMap;
-    public List<Sims> simsList;
+    public Map<Long, Sims> simsList;
     private final int defaultXSize = 13;
     private final int defaultYSize = 5;
 
-    public SimsMap(List<Sims> simsList) {
+    public SimsMap(Map<Long, Sims> simsList) {
         map = new char[defaultXSize * defaultYSize];
         simsMap = new char[defaultXSize * defaultYSize];
         Arrays.fill(map, ' ');
@@ -23,7 +23,7 @@ public class SimsMap {
 
     public void populateSimsMap() {
         clearSimsMap();
-        for (Sims sim : simsList) {
+        for (Sims sim : simsList.values()) {
             int x = sim.pos.x();
             int y = sim.pos.y();
 

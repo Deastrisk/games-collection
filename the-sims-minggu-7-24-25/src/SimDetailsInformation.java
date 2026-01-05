@@ -31,30 +31,38 @@ public class SimDetailsInformation extends SimDetailsSelect {
         System.out.println("+------------------------+");
         
         System.out.println("Skills:");
-        if (this.sim.skills == null || this.sim.skills.isEmpty()) {
-            System.out.println("No skills yet.");
 
-        } else {
+        {
+            boolean hasSkill = false;
             for (Map.Entry<String, Skill> entry : this.sim.skills.entrySet()) {
                 if (entry.getValue().getLevel() <= 0) {
                     continue;
                 }
 
+                hasSkill = true;
                 System.out.println(" - " + entry.getKey() + " Skill (" + entry.getValue().getLevel() + "/10)");
+            }
+
+            if (!hasSkill) {
+                System.out.println("No skills yet.");
             }
         }
         
         System.out.println("+------------------------+");
 
         System.out.println("Friends:");
-        if (this.sim.friends == null || this.sim.friends.isEmpty()) {
-            System.out.println("No friends yet.");
-        } else {
-            for (Friend friend : this.sim.friends) {
-                System.out.println(" - " + friend.name + " (" + friend.getFriendshipStatus() + ")");
+        {
+            boolean hasFriend = false;
+            for (long friendId : this.sim.friendIds) {
+                System.out.println(" - " + householdDetails.getSim(friendId).name + " (" + householdDetails.getFriendship(this.sim.getId(), friendId).getFriendshipStatus() + ")");
+                hasFriend = true;
+            }
+
+            if (!hasFriend) {
+                System.out.println("No friends yet.");
             }
         }
-
+        
         System.out.println("+========================+");
         int inp = getInput();
         return handleInput(inp);

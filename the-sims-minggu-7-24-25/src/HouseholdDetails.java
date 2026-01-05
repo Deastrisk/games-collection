@@ -1,42 +1,57 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class HouseholdDetails {
-    private int count = 0;
-    private final List<Sims> simsList;
+    private final Map<Long, Sims> sims = new HashMap<>();
+    private long latestId = 0;
     public final SimsMap map;
-    public boolean previouslyOpened = false;
-
+    public boolean shouldRandomize = false;
+    public List<Friendship> friendships = new ArrayList<>();
+    
     public HouseholdDetails() {
-        this.simsList = new ArrayList<>();
-        this.map = new SimsMap(simsList);
+        this.map = new SimsMap(sims);
+    }
+
+    public Sims createVampire(String name) {
+        Sims sim = new Vampire(name, latestId++);
+        sims.put(latestId - 1, sim);
+        return sim;
+    }
+
+    public Sims createHuman(String name) {
+        Sims sim = new Human(name, latestId++);
+        sims.put(latestId - 1, sim);
+        return sim;
+    }
+
+    public Sims createAlien(String name) {
+        Sims sim = new Alien(name, latestId++);
+        sims.put(latestId - 1, sim);
+        return sim;
     }
 
     public int getCount() {
-        return count;
+        return sims.size();
     }
 
-    public int incrementCount() {
-        return ++this.count;
-    }
-
-    public int reduceCount() {
-        return --this.count;
-    }
-
-    public Sims getSim(int index) {
+    public Sims getSim(long index) {
         Objects.requireNonNull(index);
-        if (index < 0 || index >= count) {
-            throw new IndexOutOfBoundsException();
+        if (index < 0 || index >= latestId) {
+            throw new IndexOutOfBoundsException(
+                    "Cannot retrieve an invalid sim. (" + 
+                    index + " < 0 || " + index + " >= " + latestId + ")"
+            );
         }
 
-        return simsList.get(index);
+        return sims.get(index);
     }
 
     public Sims getSim(String name) {
         Objects.requireNonNull(name);
-        for (Sims sim : simsList) {
+        for (Sims sim : sims.values()) {
             if (sim.name.equals(name)) {
                 return sim;
             }
@@ -44,8 +59,17 @@ public class HouseholdDetails {
         return null;
     }
 
-    public void addSims(Sims sim) {
-        simsList.add(sim);
-        count++;
+    public Friendship getFriendship(long idA, long idB) {
+        for (Friendship friendship : friendships) {
+            if ((friendship.idA != idA || friendship.idB != idB) &&
+                (friendship.idA != idB || friendship.idB != idA)
+            ) {
+                continue;
+            }
+
+            return friendship;
+        }
+
+        return null;
     }
 }
