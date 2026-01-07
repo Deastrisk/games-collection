@@ -1,5 +1,6 @@
 package pages;
 
+import data.CustomColors;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,6 +8,7 @@ import javax.swing.*;
 
 public class TitleScreen implements Page, ActionListener {
     JFrame frame;
+    
     public TitleScreen(JFrame frame) {
         this.frame = frame;
     }
@@ -31,7 +33,7 @@ public class TitleScreen implements Page, ActionListener {
 
         // TITLE
         JLabel title = new JLabel("Snake Game");
-        title.setForeground(new Color(0xFFFFFF));
+        title.setForeground(Color.white);
         title.setVerticalTextPosition(JLabel.CENTER);
         title.setHorizontalTextPosition(JLabel.CENTER);
         title.setFont(new Font("SansSerif", Font.BOLD, 50));
@@ -43,17 +45,25 @@ public class TitleScreen implements Page, ActionListener {
         // BUTTONS
         JButton startBtn = new JButton("START");
         startBtn.setFont(new Font("SansSerif", Font.PLAIN, 20));
+        startBtn.setForeground(Color.white);
+        startBtn.setBackground(CustomColors.redishBrown());
+        startBtn.setBorder(BorderFactory.createLineBorder(CustomColors.darkGreen(), 2, true));
 
         JButton settingsBtn = new JButton("SETTINGS");
         settingsBtn.setFont(new Font("SansSerif", Font.PLAIN, 20));
+        settingsBtn.setForeground(Color.white);
+        settingsBtn.setBackground(CustomColors.redishBrown());
 
         JButton exitBtn = new JButton("EXIT");
         exitBtn.setFont(new Font("SansSerif", Font.PLAIN, 20));
+        exitBtn.setForeground(Color.white);
+        exitBtn.setBackground(CustomColors.redishBrown());
         
         buttonsPanel.add(startBtn);
         buttonsPanel.add(settingsBtn);
         buttonsPanel.add(exitBtn);
 
+        // adds panels to frame
         frame.add(titlePanel);
         frame.add(buttonsPanel);
         frame.add(snakeGIFPanel);
