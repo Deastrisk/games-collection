@@ -22,7 +22,7 @@ public class TitleScreen implements Page, ActionListener {
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
         titlePanel.setBackground(CustomColors.darkGreen());
-        titlePanel.setPreferredSize(new Dimension(100, 100));
+        titlePanel.setPreferredSize(new Dimension(100, 200));
 
         JPanel contentsPanel = new JPanel();
         contentsPanel.setLayout(new GridLayout());
@@ -43,31 +43,37 @@ public class TitleScreen implements Page, ActionListener {
         contentsPanel.add(snakeGIFPanel);
 
         // TITLE
-        JLabel title = new JLabel("Snake Game");
+        JLabel title = new JLabel();
         title.setForeground(Color.white);
         title.setVerticalTextPosition(JLabel.CENTER);
         title.setHorizontalTextPosition(JLabel.CENTER);
-        title.setFont(new Font("SansSerif", Font.BOLD, 50));
+        // title.setFont(new Font("SansSerif", Font.BOLD, 50));
         title.setVerticalAlignment(JLabel.CENTER);
         title.setHorizontalAlignment(JLabel.CENTER);
+
+        Image titleImg = (new ImageIcon("src\\resources\\game-title.png")).getImage();
+        ImageIcon titleIcon = new ImageIcon(titleImg.getScaledInstance(400, 300, Image.SCALE_SMOOTH));
+        title.setIcon(titleIcon);
         
         titlePanel.add(title);
 
         // BUTTONS
-        buttonsPanel.add(Box.createVerticalGlue());
+        // buttonsPanel.add(Box.createVerticalGlue());
         buttonsPanel.add(createButton("START"));
         buttonsPanel.add(Box.createVerticalStrut(10));
         buttonsPanel.add(createButton("SETTINGS"));
         buttonsPanel.add(Box.createVerticalStrut(10));
         buttonsPanel.add(createButton("EXIT"));
-        buttonsPanel.add(Box.createVerticalGlue());
+        // buttonsPanel.add(Box.createVerticalGlue());
     }
 
-    public JButton createButton(String text) {
-        JButton btn = new JButton(text);
+    public JButton createButton(String imgPath) {
+        JButton btn = new JButton();
         btn.setFont(new Font("SansSerif", Font.PLAIN, 20));
         btn.setForeground(Color.white);
         btn.setBackground(CustomColors.redishBrown());
+
+        ImageIcon img = new ImageIcon(imgPath);
 
         final Dimension btnSize = new Dimension(140, 35);
         btn.setPreferredSize(btnSize);
