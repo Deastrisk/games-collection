@@ -15,58 +15,72 @@ public class TitleScreen implements Page, ActionListener {
     
     @Override
     public void display() {
-        frame.setLayout(null);
+        frame.setLayout(new BorderLayout());
+        frame.setBackground(CustomColors.darkGreen());
 
         // PAGE LAYOUT
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
-        titlePanel.setBackground(Color.GREEN);
-        titlePanel.setBounds(0, 0, 600, 80);
+        titlePanel.setBackground(CustomColors.darkGreen());
+        titlePanel.setPreferredSize(new Dimension(100, 200));
 
+        JPanel contentsPanel = new JPanel();
+        contentsPanel.setLayout(new GridLayout());
+        
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setBackground(Color.MAGENTA);
-        buttonsPanel.setBounds(0, 80, 300, 370);
+        buttonsPanel.setPreferredSize(new Dimension(1000, 100));
+        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
 
         JPanel snakeGIFPanel = new JPanel();
         snakeGIFPanel.setBackground(Color.BLUE);
-        snakeGIFPanel.setBounds(300, 80, 300, 370);
+        snakeGIFPanel.setPreferredSize(new Dimension(1000, 100));
+
+        // adds panels to frame
+        frame.add(titlePanel, BorderLayout.NORTH);
+        frame.add(contentsPanel, BorderLayout.CENTER);
+        contentsPanel.add(buttonsPanel);
+        contentsPanel.add(snakeGIFPanel);
 
         // TITLE
-        JLabel title = new JLabel("Snake Game");
+        JLabel title = new JLabel();
         title.setForeground(Color.white);
         title.setVerticalTextPosition(JLabel.CENTER);
         title.setHorizontalTextPosition(JLabel.CENTER);
-        title.setFont(new Font("SansSerif", Font.BOLD, 50));
+        // title.setFont(new Font("SansSerif", Font.BOLD, 50));
         title.setVerticalAlignment(JLabel.CENTER);
         title.setHorizontalAlignment(JLabel.CENTER);
+
+        Image titleImg = (new ImageIcon("src\\resources\\game-title.png")).getImage();
+        ImageIcon titleIcon = new ImageIcon(titleImg.getScaledInstance(400, 300, Image.SCALE_SMOOTH));
+        title.setIcon(titleIcon);
         
         titlePanel.add(title);
 
         // BUTTONS
-        JButton startBtn = new JButton("START");
-        startBtn.setFont(new Font("SansSerif", Font.PLAIN, 20));
-        startBtn.setForeground(Color.white);
-        startBtn.setBackground(CustomColors.redishBrown());
-        startBtn.setBorder(BorderFactory.createLineBorder(CustomColors.darkGreen(), 2, true));
+        // buttonsPanel.add(Box.createVerticalGlue());
+        buttonsPanel.add(createButton("START"));
+        buttonsPanel.add(Box.createVerticalStrut(10));
+        buttonsPanel.add(createButton("SETTINGS"));
+        buttonsPanel.add(Box.createVerticalStrut(10));
+        buttonsPanel.add(createButton("EXIT"));
+        // buttonsPanel.add(Box.createVerticalGlue());
+    }
 
-        JButton settingsBtn = new JButton("SETTINGS");
-        settingsBtn.setFont(new Font("SansSerif", Font.PLAIN, 20));
-        settingsBtn.setForeground(Color.white);
-        settingsBtn.setBackground(CustomColors.redishBrown());
+    public JButton createButton(String imgPath) {
+        JButton btn = new JButton();
+        btn.setFont(new Font("SansSerif", Font.PLAIN, 20));
+        btn.setForeground(Color.white);
+        btn.setBackground(CustomColors.redishBrown());
 
-        JButton exitBtn = new JButton("EXIT");
-        exitBtn.setFont(new Font("SansSerif", Font.PLAIN, 20));
-        exitBtn.setForeground(Color.white);
-        exitBtn.setBackground(CustomColors.redishBrown());
-        
-        buttonsPanel.add(startBtn);
-        buttonsPanel.add(settingsBtn);
-        buttonsPanel.add(exitBtn);
+        ImageIcon img = new ImageIcon(imgPath);
 
-        // adds panels to frame
-        frame.add(titlePanel);
-        frame.add(buttonsPanel);
-        frame.add(snakeGIFPanel);
+        final Dimension btnSize = new Dimension(140, 35);
+        btn.setPreferredSize(btnSize);
+        btn.setMaximumSize(btnSize);
+        btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btn.setFocusable(false);
+        return btn;
     }
 
     @Override
