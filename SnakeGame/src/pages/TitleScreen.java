@@ -16,11 +16,12 @@ public class TitleScreen implements Page, ActionListener {
     @Override
     public void display() {
         frame.setLayout(new BorderLayout());
+        frame.setBackground(CustomColors.darkGreen());
 
         // PAGE LAYOUT
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
-        titlePanel.setBackground(Color.GREEN);
+        titlePanel.setBackground(CustomColors.darkGreen());
         titlePanel.setPreferredSize(new Dimension(100, 100));
 
         JPanel contentsPanel = new JPanel();
@@ -67,8 +68,10 @@ public class TitleScreen implements Page, ActionListener {
         btn.setFont(new Font("SansSerif", Font.PLAIN, 20));
         btn.setForeground(Color.white);
         btn.setBackground(CustomColors.redishBrown());
-        btn.setPreferredSize(new Dimension(140, 35));
-        btn.setMaximumSize(new Dimension(140, 35));
+
+        final Dimension btnSize = new Dimension(140, 35);
+        btn.setPreferredSize(btnSize);
+        btn.setMaximumSize(btnSize);
         btn.setAlignmentX(Component.CENTER_ALIGNMENT);
         btn.setFocusable(false);
         return btn;
