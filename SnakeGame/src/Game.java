@@ -22,14 +22,13 @@ public class Game extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // this.setResizable(false);
         this.setTitle("Amazing app");
-        ImageIcon icon = new ImageIcon("src\\assets\\snake-logo.png");
+        ImageIcon icon = new ImageIcon("src\\resources\\snake-game-logo.jpg");
         this.setIconImage(icon.getImage());
         this.getContentPane().setBackground(Color.darkGray);
         this.setLayout(null);
     }
     
     public void start() {
-        JLabel title = new JLabel("Snake Game");
         pages.get(PageTypes.TITLE_SCREEN).display();
         this.setVisible(true);
     }

@@ -2,6 +2,7 @@ src/App.java
 src/Game.java
 
 src/data/SettingsData.java
+src/data/CustomColors.java
 
 src/pages/Page.java
 src/pages/PageTypes.java
