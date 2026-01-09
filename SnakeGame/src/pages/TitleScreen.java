@@ -23,7 +23,7 @@ public class TitleScreen implements Page, ActionListener {
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
         titlePanel.setOpaque(false);
-        titlePanel.setPreferredSize(new Dimension(100, 200));
+        titlePanel.setPreferredSize(new Dimension(100, 150));
 
         JPanel contentsPanel = new JPanel();
         contentsPanel.setLayout(new GridLayout());
@@ -49,11 +49,11 @@ public class TitleScreen implements Page, ActionListener {
         title.setForeground(CustomColors.darkGreen());
         title.setVerticalTextPosition(JLabel.CENTER);
         title.setHorizontalTextPosition(JLabel.CENTER);
-        title.setFont(PixelFont.createFont(50));
+        title.setFont(PixelFont.createFont(67));
         title.setVerticalAlignment(JLabel.CENTER);
         title.setHorizontalAlignment(JLabel.CENTER);
         
-        titlePanel.add(title);
+        titlePanel.add(title, BorderLayout.CENTER);
 
         // BUTTONS
         buttonsPanel.add(Box.createVerticalGlue());
@@ -61,13 +61,15 @@ public class TitleScreen implements Page, ActionListener {
         buttonsPanel.add(Box.createVerticalStrut(10));
         buttonsPanel.add(createButton("SETTINGS"));
         buttonsPanel.add(Box.createVerticalStrut(10));
+        buttonsPanel.add(createButton("CREDITS"));
+        buttonsPanel.add(Box.createVerticalStrut(10));
         buttonsPanel.add(createButton("EXIT"));
         buttonsPanel.add(Box.createVerticalGlue());
     }
 
     public JButton createButton(String text) {
         JButton btn = new JButton(text);
-        btn.setFont(new Font("SansSerif", Font.BOLD, 30));
+        btn.setFont(PixelFont.PIXEL_FONT);
         btn.setForeground(CustomColors.darkGreen());
         btn.setBackground(new Color(0x0000, true));
 

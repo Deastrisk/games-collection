@@ -18,14 +18,20 @@ public class Game extends JFrame {
     );
 
     public Game() {
-        this.setSize(600, 450);
+        // frame size
+        Dimension minimumSize = new Dimension(1000, 550);
+        this.setSize(minimumSize);
+        this.setMinimumSize(minimumSize);
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // this.setResizable(false);
         this.setTitle("Amazing app");
+
+        // window icon
         ImageIcon icon = new ImageIcon("src\\resources\\snake-game-logo.jpg");
         this.setIconImage(icon.getImage());
+
+        // default bg color
         this.getContentPane().setBackground(Color.darkGray);
-        this.setLayout(null);
     }
     
     public void start() {
