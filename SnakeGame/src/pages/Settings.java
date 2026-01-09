@@ -13,4 +13,10 @@ public class Settings implements Page {
     public void display() {
 
     }
+
+    // @Override
+    // public void handleRequest(PagesContext context) {
+    //     display();
+    //     context.setPage(new TitleScreen(null));
+    // }
 }

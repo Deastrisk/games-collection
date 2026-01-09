@@ -13,4 +13,9 @@ public class Play implements Page {
     public void display() {
         // System.out.println("h")
     }
+
+    // @Override
+    // public void handleRequest(PagesContext context) {
+    //     display();
+    // }
 }
