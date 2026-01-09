@@ -4,6 +4,7 @@ a snake game made with swing in java.
 **SOURCES ARE PROVIDED DOWN BELOW FOR THOSE NOT GENERATED**
 
 - the logo I made myself.
+- [font used for title](https://www.dafont.com/04b-30.font)
 
 things learned:
 - packages (though this is still trash)
