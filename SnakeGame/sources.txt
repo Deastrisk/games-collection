@@ -9,3 +9,5 @@ src/pages/PageTypes.java
 src/pages/Play.java
 src/pages/Settings.java
 src/pages/TitleScreen.java
+
+src/resources/font/PixelFont.java

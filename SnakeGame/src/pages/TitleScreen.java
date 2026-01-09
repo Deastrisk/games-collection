@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import resources.font.PixelFont;
 
 public class TitleScreen implements Page, ActionListener {
     JFrame frame;
@@ -16,24 +17,25 @@ public class TitleScreen implements Page, ActionListener {
     @Override
     public void display() {
         frame.setLayout(new BorderLayout());
-        frame.setBackground(CustomColors.darkGreen());
+        frame.getContentPane().setBackground(CustomColors.lightGreen());
 
         // PAGE LAYOUT
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
-        titlePanel.setBackground(CustomColors.darkGreen());
+        titlePanel.setOpaque(false);
         titlePanel.setPreferredSize(new Dimension(100, 200));
 
         JPanel contentsPanel = new JPanel();
         contentsPanel.setLayout(new GridLayout());
+        contentsPanel.setOpaque(false);
         
         JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setBackground(Color.MAGENTA);
+        buttonsPanel.setOpaque(false);
         buttonsPanel.setPreferredSize(new Dimension(1000, 100));
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
 
         JPanel snakeGIFPanel = new JPanel();
-        snakeGIFPanel.setBackground(Color.BLUE);
+        snakeGIFPanel.setOpaque(false);
         snakeGIFPanel.setPreferredSize(new Dimension(1000, 100));
 
         // adds panels to frame
@@ -43,43 +45,45 @@ public class TitleScreen implements Page, ActionListener {
         contentsPanel.add(snakeGIFPanel);
 
         // TITLE
-        JLabel title = new JLabel();
-        title.setForeground(Color.white);
+        JLabel title = new JLabel("Snake Game");
+        title.setForeground(CustomColors.darkGreen());
         title.setVerticalTextPosition(JLabel.CENTER);
         title.setHorizontalTextPosition(JLabel.CENTER);
-        // title.setFont(new Font("SansSerif", Font.BOLD, 50));
+        title.setFont(PixelFont.createFont(50));
         title.setVerticalAlignment(JLabel.CENTER);
         title.setHorizontalAlignment(JLabel.CENTER);
-
-        Image titleImg = (new ImageIcon("src\\resources\\game-title.png")).getImage();
-        ImageIcon titleIcon = new ImageIcon(titleImg.getScaledInstance(400, 300, Image.SCALE_SMOOTH));
-        title.setIcon(titleIcon);
         
         titlePanel.add(title);
 
         // BUTTONS
-        // buttonsPanel.add(Box.createVerticalGlue());
+        buttonsPanel.add(Box.createVerticalGlue());
         buttonsPanel.add(createButton("START"));
         buttonsPanel.add(Box.createVerticalStrut(10));
         buttonsPanel.add(createButton("SETTINGS"));
         buttonsPanel.add(Box.createVerticalStrut(10));
         buttonsPanel.add(createButton("EXIT"));
-        // buttonsPanel.add(Box.createVerticalGlue());
+        buttonsPanel.add(Box.createVerticalGlue());
     }
 
-    public JButton createButton(String imgPath) {
-        JButton btn = new JButton();
-        btn.setFont(new Font("SansSerif", Font.PLAIN, 20));
-        btn.setForeground(Color.white);
-        btn.setBackground(CustomColors.redishBrown());
+    public JButton createButton(String text) {
+        JButton btn = new JButton(text);
+        btn.setFont(new Font("SansSerif", Font.BOLD, 30));
+        btn.setForeground(CustomColors.darkGreen());
+        btn.setBackground(new Color(0x0000, true));
 
-        ImageIcon img = new ImageIcon(imgPath);
-
-        final Dimension btnSize = new Dimension(140, 35);
+        final Dimension btnSize = new Dimension(200, 40);
         btn.setPreferredSize(btnSize);
         btn.setMaximumSize(btnSize);
         btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        btn.setBorder(BorderFactory.createLineBorder(new Color(0x000000), 0));
+        btn.setBorderPainted(false);
+
         btn.setFocusable(false);
+        btn.setContentAreaFilled(false);
+        btn.setOpaque(false);
+        btn.setFocusPainted(false);
+
         return btn;
     }
 
@@ -89,4 +93,9 @@ public class TitleScreen implements Page, ActionListener {
 
         // }
     }
+
+    // @Override
+    // public void handleRequest(PagesContext context) {
+    //     this.display();
+    // }
 }
