@@ -1,5 +1,4 @@
 public class Amajing implements PrintableState {
-    @Override
     public void printPrintables() {
         System.out.println("Amajing!");
     }

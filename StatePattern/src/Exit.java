@@ -1,5 +1,4 @@
 public class Exit implements PrintableState {
-    @Override
     public void printPrintables() {
         System.out.println("Exiting program...");
     }
