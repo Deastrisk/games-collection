@@ -1,12 +1,12 @@
-public class Amajing implements PrintableState {
+public class Exit implements PrintableState {
     @Override
     public void printPrintables() {
-        System.out.println("Amajing!");
+        System.out.println("Exiting program...");
     }
 
     @Override
     public void handle(PrintableContext context) {
         printPrintables();
-        context.setState(new HelloWorld());
+        System.exit(0);
     }
 }

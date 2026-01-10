@@ -1,5 +1,12 @@
+import java.util.Scanner;
+
 public class App {
+    public static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+        PrintableContext prints = new PrintableContext();
+
+        for (;;) {
+            prints.request();
+        }
     }
 }

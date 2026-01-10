@@ -1,4 +1,4 @@
 public interface PrintableState {
-    public void handle();
+    public void handle(PrintableContext context);
     public void printPrintables();
 }
