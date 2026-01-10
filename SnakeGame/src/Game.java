@@ -13,6 +13,7 @@ public class Game extends JFrame {
         this.setMinimumSize(minimumSize);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
         this.setTitle("Amazing app");
 
         // window icon

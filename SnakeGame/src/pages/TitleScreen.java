@@ -87,10 +87,10 @@ public class TitleScreen implements Page {
 
     public Page handleButtonPress() {
         return switch (nextPage) {
-            case PageTypes.PLAY: yield new Play(frame);
-            case PageTypes.SETTINGS: yield new Play(frame);
-            case PageTypes.CREDITS: yield new Play(frame);
-            case PageTypes.EXIT: yield new Play(frame);
+            case PageTypes.PLAY: yield new Play();
+            case PageTypes.SETTINGS: yield new Settings();
+            case PageTypes.CREDITS: yield new Play();
+            case PageTypes.EXIT: System.exit(0);
             default: yield null;
         };
     }

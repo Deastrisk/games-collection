@@ -12,6 +12,6 @@ public class Settings implements Page {
     @Override
     public void handle(PagesContext context) {
         display();
-        context.setPage(new TitleScreen(null));
+        context.setPage(new TitleScreen());
     }
 }
