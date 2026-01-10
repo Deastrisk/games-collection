@@ -2,5 +2,5 @@ package pages;
 
 public interface Page {
     public void display();
-    // public void handleRequest(PagesContext context);
+    public void handle(PagesContext context);
 }

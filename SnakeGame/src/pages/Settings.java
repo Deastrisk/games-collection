@@ -1,12 +1,7 @@
 package pages;
 
-import data.SettingsData;
-
 public class Settings implements Page {
-    private final SettingsData settings;
-
-    public Settings(SettingsData settings) {
-        this.settings = settings;
+    public Settings() {
     }
 
     @Override
@@ -14,9 +9,9 @@ public class Settings implements Page {
 
     }
 
-    // @Override
-    // public void handleRequest(PagesContext context) {
-    //     display();
-    //     context.setPage(new TitleScreen(null));
-    // }
+    @Override
+    public void handle(PagesContext context) {
+        display();
+        context.setPage(new TitleScreen(null));
+    }
 }

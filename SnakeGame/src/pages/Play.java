@@ -1,12 +1,11 @@
 package pages;
 
-import data.SettingsData;
+import javax.swing.JFrame;
 
 public class Play implements Page {
-    private final SettingsData settings;
-
-    public Play(SettingsData settings) {
-        this.settings = settings;
+    private JFrame frame;
+    public Play(JFrame frame) {
+        this.frame = frame;
     }
 
     @Override
@@ -14,8 +13,8 @@ public class Play implements Page {
         // System.out.println("h")
     }
 
-    // @Override
-    // public void handleRequest(PagesContext context) {
-    //     display();
-    // }
+    @Override
+    public void handle(PagesContext context) {
+        display();
+    }
 }

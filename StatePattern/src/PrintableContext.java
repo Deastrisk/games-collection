@@ -1,6 +1,6 @@
 public class PrintableContext {
     private PrintableState currentState;
-    private Person person;
+    private final Person person;
 
     public PrintableContext() {
         currentState = new HelloWorld();

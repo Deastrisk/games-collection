@@ -5,9 +5,10 @@ src/data/SettingsData.java
 src/data/CustomColors.java
 
 src/pages/Page.java
-src/pages/PageTypes.java
 src/pages/Play.java
 src/pages/Settings.java
 src/pages/TitleScreen.java
+src/pages/PagesContext.java
+src/pages/PageTypes.java
 
 src/resources/font/PixelFont.java
