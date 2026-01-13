@@ -1,6 +1,6 @@
 package pages;
 
-public enum PageTypes {
+public enum Pages {
     TITLE_SCREEN,
     PLAY,
     SETTINGS,

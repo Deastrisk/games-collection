@@ -10,12 +10,13 @@ public class Context {
         this.cardLayout = cardLayout;
     }
 
-    public Container getContainer() { return this.container; }
-    public CardLayout getCardLayout() { return this.cardLayout; }
+    // private Container getContainer() { return this.container; }
+    // private CardLayout getCardLayout() { return this.cardLayout; }
 
     public void showCard(States name) {
         cardLayout.show(container, name.name());
     }
+    
     public void setState(State state) {
         if (currentState != null) {
             currentState.exit(this);

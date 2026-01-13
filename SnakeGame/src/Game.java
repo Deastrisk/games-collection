@@ -1,10 +1,12 @@
 import data.SettingsData;
 import java.awt.*;
 import javax.swing.*;
-import pages.PagesContext;
+import pages.*;
 
 public class Game extends JFrame {
     private final SettingsData settings = new SettingsData();
+    private final CardLayout card;
+    private final Container container;
 
     public Game() {
         // frame size
@@ -22,13 +24,19 @@ public class Game extends JFrame {
 
         // default bg color
         this.getContentPane().setBackground(Color.darkGray);
-        this.setLayout(new CardLayout());
+
+        card = new CardLayout();
+        container = getContentPane();
+        container.setLayout(card);
     }
     
     public void start() {
-        PagesContext pageContext = new PagesContext(this);
-        for (int i = 0; i < 5; i++) {
-            pageContext.request();
-        }
+        PagesContext context = new PagesContext(container, card);
+
+        container.add(new TitleScreenPanel(context), Pages.TITLE_SCREEN.name());
+        container.add(new SettingsPanel(context), Pages.SETTINGS.name());
+
+        context.setPage(new TitleScreenState());
+        this.setVisible(true);
     }
 }
