@@ -1,29 +1,28 @@
 import java.awt.*;
-import javax.swing.*;
 
 public class Context {
-    private State currentState;
-    private final Container content;
+    public State currentState;
+    private final Container container;
     private final CardLayout cardLayout;
 
-    public Context(JFrame frame) {
-        currentState = new One();
-        cardLayout = new CardLayout();
-        content = frame.getContentPane();
+    public Context(Container container, CardLayout cardLayout) {
+        this.container = container;
+        this.cardLayout = cardLayout;
     }
 
-    public void initializeStates() {
-        if (!currentState.hasBeenLoaded()) {
-            currentState.load(this);
+    public Container getContainer() { return this.container; }
+    public CardLayout getCardLayout() { return this.cardLayout; }
+
+    public void showCard(States name) {
+        cardLayout.show(container, name.name());
+    }
+    public void setState(State state) {
+        if (currentState != null) {
+            currentState.exit(this);
         }
+        currentState = state;
+        currentState.enter(this);
     }
 
-    public void request() {
-        currentState.handle(this);
-    }
-
-    public Container getContainer() { return content; }
-    public CardLayout getCardLayout() { return cardLayout; }
-    
-    public void setState(State state) { this.currentState = state; }
+    // public String getState() { return currentState.getState(); }
 }

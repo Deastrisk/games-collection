@@ -1,6 +1,6 @@
-enum States {
+public enum States {
     ONE,
-    TWO, 
+    TWO,
     THREE,
     FOUR
 }

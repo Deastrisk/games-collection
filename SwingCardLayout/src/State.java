@@ -1,5 +1,4 @@
 public interface State {
-    public boolean hasBeenLoaded();
-    public void handle(Context context);
-    public void load(Context context);
+    public void enter(Context context);
+    public void exit(Context context);
 }
