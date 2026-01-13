@@ -1,21 +1,10 @@
 import data.SettingsData;
 import java.awt.*;
-import java.util.Map;
 import javax.swing.*;
-import pages.Page;
-import pages.PageTypes;
-import pages.Play;
-import pages.Settings;
-import pages.TitleScreen;
+import pages.PagesContext;
 
 public class Game extends JFrame {
     private final SettingsData settings = new SettingsData();
-
-    public Map<PageTypes, Page> pages = Map.ofEntries(
-        Map.entry(PageTypes.TITLE_SCREEN, new TitleScreen(this)),
-        Map.entry(PageTypes.PLAY, new Play(settings)),
-        Map.entry(PageTypes.SETTINGS, new Settings(settings))
-    );
 
     public Game() {
         // frame size
@@ -24,6 +13,7 @@ public class Game extends JFrame {
         this.setMinimumSize(minimumSize);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
         this.setTitle("Amazing app");
 
         // window icon
@@ -32,10 +22,13 @@ public class Game extends JFrame {
 
         // default bg color
         this.getContentPane().setBackground(Color.darkGray);
+        this.setLayout(new CardLayout());
     }
     
     public void start() {
-        pages.get(PageTypes.TITLE_SCREEN).display();
-        this.setVisible(true);
+        PagesContext pageContext = new PagesContext(this);
+        for (int i = 0; i < 5; i++) {
+            pageContext.request();
+        }
     }
 }
