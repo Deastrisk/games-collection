@@ -16,7 +16,6 @@ public class PagesContext {
     }
 
     protected void showPage(Pages name) { 
-        System.out.println(name.name());
         card.show(container, name.name()); 
     }
 
