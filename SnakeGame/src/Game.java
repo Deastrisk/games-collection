@@ -37,7 +37,7 @@ public class Game extends JFrame {
         container.add(new SettingsPanel(context), Pages.SETTINGS.name());
         container.add(new CreditsPanel(context), Pages.CREDITS.name());
 
-        context.setPage(new CreditsState());
+        context.setPage(new TitleScreenState());
         this.setVisible(true);
     }
 }

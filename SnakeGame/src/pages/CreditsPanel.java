@@ -1,9 +1,18 @@
 package pages;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -45,7 +54,28 @@ public class CreditsPanel extends JPanel {
         addCredit(credits, "Concept", "Various", "It's just a snake game...");
         addCredit(credits, "Design", "Amadeus Marcio Sutanto");
         addCredit(credits, "Font", "04b_30 by 04");
-        credits.add(Box.createVerticalStrut(100));
+        addCredit(credits, "Font", "04b_30 by 04");
+        addCredit(credits, "Font", "04b_30 by 04");
+        addCredit(credits, "Font", "04b_30 by 04");
+        addCredit(credits, "Font", "04b_30 by 04");
+        addCredit(credits, "Font", "04b_30 by 04");
+        addCredit(credits, "Font", "04b_30 by 04");
+        addCredit(credits, "Font", "04b_30 by 04");
+        addCredit(credits, "Font", "04b_30 by 04");
+
+        JButton backBtn = new JButton("Back");
+        backBtn.setFont(PixelFont.createFont(30));
+        backBtn.setOpaque(false);
+        backBtn.setContentAreaFilled(false);
+        backBtn.setBorderPainted(false);
+        backBtn.setBorder(BorderFactory.createEmptyBorder(15, 0, 22, 0));
+        backBtn.setForeground(CustomColors.lightGreen());
+        backBtn.setFocusable(false);
+        backBtn.setFocusPainted(false);
+        backBtn.addActionListener(e -> {
+            context.showPage(Pages.TITLE_SCREEN);
+        });
+        this.add(backBtn, BorderLayout.SOUTH);
     }
 
     // my fucking god, this took WAY too much time!
