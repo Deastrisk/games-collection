@@ -3,9 +3,12 @@ package resources.font;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
+import java.awt.font.TextAttribute;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PixelFont {
     public static final Font PIXEL_FONT;
@@ -41,5 +44,18 @@ public class PixelFont {
 
     public static Font createFont(float size) {
         return PIXEL_FONT.deriveFont(size);
+    }
+
+    public static Font createFont(float size, FontStyle... formats) {
+        if (formats == null) {
+            return PIXEL_FONT.deriveFont(size);
+        }
+        Font font = PIXEL_FONT.deriveFont(size);
+        Map<TextAttribute, Object> attributes = new HashMap<>(font.getAttributes());
+        for (FontStyle format : formats) {
+            attributes.put(format.key, format.value);
+        }
+
+        return font.deriveFont(attributes);
     }
 }

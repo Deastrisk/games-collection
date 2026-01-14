@@ -1,7 +1,7 @@
 package pages;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 import javax.swing.border.*;
 import resources.CustomColors;
 import resources.font.PixelFont;
@@ -38,7 +38,7 @@ public class TitleScreenPanel extends JPanel {
 
         JButton creditsBtn = createButton("CREDITS", margin);
         creditsBtn.addActionListener(e -> {
-            // context.setPage(new );
+            context.setPage(new CreditsState());
         });
 
         JButton exitBtn = createButton("EXIT", BorderFactory.createEmptyBorder(0, 20, 20, 70));
