@@ -1,10 +1,6 @@
 package pages;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -33,6 +29,7 @@ public class CreditsPanel extends JPanel {
         credits.setBackground(CustomColors.darkGreen());
         credits.setLayout(new BoxLayout(credits, BoxLayout.Y_AXIS));
         credits.setAlignmentX(Component.CENTER_ALIGNMENT);
+        credits.setAlignmentX(Component.TOP_ALIGNMENT);
         
         JScrollPane scrollPane = new JScrollPane(credits);
         scrollPane.setBackground(CustomColors.darkGreen());
@@ -45,22 +42,37 @@ public class CreditsPanel extends JPanel {
         creator.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         credits.add(creator);
 
-        addCredit(credits, "Concept", "Various", "It's just a snake game...", "adfs", "asfsadf" , "asdfsadf");
+        addCredit(credits, "Concept", "Various", "It's just a snake game...", "asdfas", "asdfads");
+        // addCredit(credits, "Concept", "Various", "It's just a snake game...", "asdfas", "asdfads");
+        // addCredit(credits, "Concept", "Various", "It's just a snake game...", "asdfas", "asdfads");
+        // addCredit(credits, "Concept", "Various", "It's just a snake game...", "asdfas", "asdfads");
+        
         addCredit(credits, "Design", "Amadeus Marcio Sutanto");
-        addCredit(credits, "Font", "04b_30", "by 04");
+        addCredit(credits, "abby", "Amadeus Marcio Sutanto adfsd fsfasfasfsd");
+        // addCredit(credits, "Font", "04b_30", "by 04");
+        // addCredit(credits, "Font", "04b_30", "by 04");
+        // addCredit(credits, "Font", "04b_30", "by 04");
+        // addCredit(credits, "Font", "04b_30", "by 04");
         // addCredit(credits, "Font", "04b_30", "by 04", "04b_30", "by 04", "04b_30", "by 04", "04b_30", "by 04", "04b_30", "by 04","04b_30", "by 04","04b_30", "by 04");
-
         credits.add(Box.createVerticalStrut(100));
     }
 
     private void addCredit(JPanel container, String role, String... credits) {
+        container.setBackground(Color.BLACK);
+
+        // JPanel wrapper = new JPanel();
+        // wrapper.setLayout(new BorderLayout());
+
         JPanel split = new JPanel();
-        split.setLayout(new GridLayout(1, 2, 15, 0));
-        split.setOpaque(false);
-        // split.setBackground(Color.BLUE);
+        split.setLayout(new GridBagLayout());
+        split.setOpaque(true);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridy = 0;
         
-        // split.setLayout(new BorderLayout(15, 0));
-        // split.setOpaque(false);
+        split.setBackground(Color.BLUE);
         
         JLabel roleLabel = new JLabel(role);
         roleLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
@@ -69,25 +81,38 @@ public class CreditsPanel extends JPanel {
         roleLabel.setHorizontalAlignment(JLabel.RIGHT);
         roleLabel.setVerticalAlignment(JLabel.TOP);
         roleLabel.setBackground(Color.LIGHT_GRAY);
-        roleLabel.setOpaque(false);
+        roleLabel.setOpaque(true);
+        
+        gbc.gridx = 0;
+        gbc.anchor = GridBagConstraints.NORTHEAST;
+        gbc.insets = new Insets(4, 4, 4, 8);
+        split.add(roleLabel, gbc);
         
         JPanel creditsPanel = new JPanel();
         creditsPanel.setOpaque(true);
         creditsPanel.setLayout(new BoxLayout(creditsPanel, BoxLayout.Y_AXIS));
+
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        gbc.insets = new Insets(4, 8, 4, 4);
+        split.add(creditsPanel, gbc);
         
         Font creditFont = new Font("SansSerif", Font.BOLD, 16);
         for (String c : credits) {
             JLabel credit = new JLabel(c);
             credit.setFont(creditFont);
             credit.setForeground(Color.WHITE);
+            credit.setBackground(Color.GREEN);
+            credit.setOpaque(true);
 
             creditsPanel.add(credit);
         }
 
-        // container.add(Box.createVerticalStrut(20));
-        split.add(roleLabel, BorderLayout.WEST);
-        split.add(creditsPanel, BorderLayout.CENTER);
-
+        container.add(Box.createVerticalStrut(20));
+        
         container.add(split);
+        split.setMaximumSize(
+            new Dimension(Integer.MAX_VALUE, split.getPreferredSize().height)
+        );
     }
 }
