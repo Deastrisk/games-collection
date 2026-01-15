@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import resources.CustomColors;
+import resources.effects.Hover;
 import resources.font.PixelFont;
 
 public class TitleScreenPanel extends JPanel {
@@ -70,6 +71,14 @@ public class TitleScreenPanel extends JPanel {
         btn.setContentAreaFilled(false);
         btn.setOpaque(false);
         btn.setFocusPainted(false);
+
+        // add hover to buttons
+        btn.addMouseListener(
+            new Hover(
+                btn, 
+                CustomColors.darkGreen(), 
+                Color.WHITE)
+        );
 
         return btn;
     }
