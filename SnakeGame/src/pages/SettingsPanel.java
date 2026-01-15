@@ -7,6 +7,8 @@ import resources.font.PixelFont;
 
 public class SettingsPanel extends JPanel {
     private final JPanel settingsPanel;
+    private final GridBagConstraints gbc;
+
     public SettingsPanel(PagesContext context) {
         setLayout(new BorderLayout());
         setBackground(CustomColors.redishBrown());
@@ -26,18 +28,18 @@ public class SettingsPanel extends JPanel {
         settingsPanel.setBorder(BorderFactory.createEmptyBorder(50, 20, 20, 40));
         settingsPanel.setLayout(new GridBagLayout());
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 0;
-        gbc.weighty = 0;
+        gbc = new GridBagConstraints();
 
         add(settingsScrollPanel);
     }
 
     private class Setting {
-        public static void createCheckBox(String text) {
+        // public static void createCheckBox(String text) {
             
+        // }
+
+        public static void createKeybind(String text) {
+            gbc.gridx = 0;
         }
     }
 }
