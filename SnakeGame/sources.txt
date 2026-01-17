@@ -13,5 +13,6 @@ src\pages\SettingsState.java
 src\pages\TitleScreenPanel.java
 src\pages\TitleScreenState.java
 src\resources\CustomColors.java
+src\resources\effects\Hover.java
 src\resources\font\FontStyle.java
 src\resources\font\PixelFont.java

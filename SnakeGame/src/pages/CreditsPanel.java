@@ -1,13 +1,13 @@
 package pages;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import resources.CustomColors;
+import resources.effects.Hover;
 import resources.font.PixelFont;
 
 public class CreditsPanel extends JPanel {
@@ -75,10 +76,14 @@ public class CreditsPanel extends JPanel {
         backBtn.addActionListener(e -> {
             context.showPage(Pages.TITLE_SCREEN);
         });
+        backBtn.addMouseListener(new Hover(
+            backBtn,
+            CustomColors.lightGreen(),
+            Color.WHITE
+        ));
         this.add(backBtn, BorderLayout.SOUTH);
     }
 
-    // my fucking god, this took WAY too much time!
     private void addCredit(JPanel container, String role, String... credits) {
         JPanel row = new JPanel();
         row.setLayout(new GridBagLayout());
@@ -110,9 +115,6 @@ public class CreditsPanel extends JPanel {
         creditsPanel.setLayout(new BoxLayout(creditsPanel, BoxLayout.Y_AXIS));
         creditsPanel.setOpaque(false);
 
-        // gbc.gridx = 1;
-        // gbc.anchor = GridBagConstraints.NORTHWEST;
-        // gbc.insets = new Insets(4, 8, 4, 4);
         split.add(creditsPanel);
         
         Font creditFont = new Font("SansSerif", Font.BOLD, 16);
