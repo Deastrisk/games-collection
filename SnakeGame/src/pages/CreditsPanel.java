@@ -115,9 +115,6 @@ public class CreditsPanel extends JPanel {
         creditsPanel.setLayout(new BoxLayout(creditsPanel, BoxLayout.Y_AXIS));
         creditsPanel.setOpaque(false);
 
-        // gbc.gridx = 1;
-        // gbc.anchor = GridBagConstraints.NORTHWEST;
-        // gbc.insets = new Insets(4, 8, 4, 4);
         split.add(creditsPanel);
         
         Font creditFont = new Font("SansSerif", Font.BOLD, 16);
