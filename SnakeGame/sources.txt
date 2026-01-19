@@ -1,11 +1,14 @@
 src\App.java
 src\Game.java
+src\data\PlayModel.java
 src\data\SettingsData.java
 src\pages\CreditsPanel.java
 src\pages\CreditsState.java
+src\pages\KeyHandler.java
 src\pages\Page.java
 src\pages\Pages.java
 src\pages\PagesContext.java
+src\pages\PlayLoop.java
 src\pages\PlayPanel.java
 src\pages\PlayState.java
 src\pages\SettingsPanel.java

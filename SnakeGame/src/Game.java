@@ -2,7 +2,7 @@ import data.SettingsData;
 import java.awt.*;
 import javax.swing.*;
 import pages.*;
-
+import pages.PlayPanel;
 public class Game extends JFrame {
     private final SettingsData settings = new SettingsData();
     private final CardLayout card;
@@ -31,12 +31,13 @@ public class Game extends JFrame {
     }
     
     public void start() {
-        PagesContext context = new PagesContext(container, card);
+        PlayPanel playPanel = new PlayPanel(null);
+        PagesContext context = new PagesContext(container, card, playPanel);
 
         container.add(new TitleScreenPanel(context), Pages.TITLE_SCREEN.name());
         container.add(new SettingsPanel(context), Pages.SETTINGS.name());
         container.add(new CreditsPanel(context), Pages.CREDITS.name());
-        container.add(new PlayPanel(context), Pages.PLAY.name());
+        container.add(playPanel, Pages.PLAY.name());
 
         context.setPage(new PlayState());
         this.setVisible(true);
