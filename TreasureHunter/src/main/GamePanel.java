@@ -2,13 +2,14 @@ package main;
 
 import java.awt.*;
 import javax.swing.*;
+import entity.Player;
 
 public class GamePanel extends JPanel implements Runnable {
 
     // Screen settings
     final int originalTileSize = 16; // 16 x 16
     final double scale;
-    final int tileSize;
+    public final int tileSize;
 
     final int maxScreenCol = 16;
     final int maxScreenRow = 12;
@@ -17,13 +18,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
+    Player player = new Player(this, keyH);
 
     final int FPS = 60;
-
-    // player position data
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4;
 
     public GamePanel() {
         // gets screen size
@@ -87,10 +84,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        if (keyH.upPressed) { playerY -= playerSpeed; }
-        if (keyH.downPressed) { playerY += playerSpeed; }
-        if (keyH.leftPressed) { playerX -= playerSpeed; }
-        if (keyH.rightPressed) { playerX += playerSpeed; }
+        player.update();
     }
 
     public void paintComponent(Graphics graphics) {
@@ -99,9 +93,9 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(graphics);
 
         Graphics2D g = (Graphics2D) graphics;
+        
+        player.draw(g);
 
-        g.setColor(Color.white);
-        g.fillRect(playerX, playerY, tileSize, tileSize);
         g.dispose();
     }
 }

@@ -1,18 +1,11 @@
-## Getting Started
+another project since SnakeGame failed.
+I WILL FINISH! (by following a tutorial :D)
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+the tutorial: [How to make a 2D game in java]{https://youtube.com/playlist?list=PL_QPQmz5C6WUF-pOQDsbsKbaBZqXj4qSq&si=KWYehrFXFLzzEfzg}
 
-## Folder Structure
+anyways...
+assets:
+- wizard: made by myself
 
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+things I learned:
+not much :( but it's okay. hopefully...

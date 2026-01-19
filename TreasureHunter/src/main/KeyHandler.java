@@ -37,4 +37,8 @@ public class KeyHandler implements KeyListener {
     public void keyTyped(KeyEvent e) {
 
     }
+
+    public boolean isPressed() {
+        return (upPressed || downPressed || leftPressed || rightPressed);
+    }
 }
