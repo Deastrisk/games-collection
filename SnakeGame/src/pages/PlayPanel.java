@@ -28,7 +28,7 @@ public final class PlayPanel extends JPanel {
         heartFilled = new ImageIcon(scaledHeartFilled);
 
         ImageIcon unscaledHeartEmpty = new ImageIcon("src/resources/minecraft-heart-empty.png");
-        Image scaledHeartEmpty = unscaledHeartEmpty.getImage().getSgicaledInstance(HEART_WIDTH, HEART_HEIGHT, Image.SCALE_SMOOTH);
+        Image scaledHeartEmpty = unscaledHeartEmpty.getImage().getScaledInstance(HEART_WIDTH, HEART_HEIGHT, Image.SCALE_SMOOTH);
         heartEmpty = new ImageIcon(scaledHeartEmpty);
     }
 
